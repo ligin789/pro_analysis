@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+
+:root {
+  --MainColor: #45519B;
+  --mainred: #E18C97;
+  --darkBlue: #00468a;
+}
+
+.bg-darkblue {
+  background-color: var(--darkBlue);
+}
+
+.bg-Blueblur {
+  background-color: var(--Blueblur);
+}
+html {
+  scroll-behavior: smooth;
+}
+.nav-link
+{
+  color:var(--MainColor)!important;
+  font-weight: bold;
+}
+.nav-item button{
+  border: solid #DC787F 1px;
+  color: #DC787F;
+  background-color: transparent;
+  border-radius: 20px;
+  padding: 4px 15px;
+}
+.nav-item button:hover{
+ background-color: #DC787F;
+ color: white;
+ cursor: pointer;
+}
+body {
+  font-family: 'Poppins' sans-serif;
+  color: var(--MainColor);
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+.headerlogo
+{
+  width: 80%;
+}
+.backgroundimg
+{
+ position: absolute;
+ width: 100%;
+ z-index: -10;
+ bottom:-62px;
+}
+.main-content
+{
+  background-color: white;
+  width:40%;
+  border-radius: 10px;
+  margin:45px 20px 20px 100px;
+  padding:60px 40px 60px 40px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.maintext h2{
+  font-weight: 700;
+  font-style: normal;
+  color:#715E8A;
+}
+.subtext
+{
+  font-size: 10px;
+  margin: 20px 0px;
+}
+.custom-control
+{
+  box-shadow:0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 10px;
+  margin: 30px 0px;
+}
+::-webkit-input-placeholder { /* Edge */
+  font-style:bolder;
+  padding-left: 10px;
+}
+.button-sub
+{
+  background-color: #45519B;
+  margin-bottom: 10px;
+}
+.ladyimg
+{
+  width: 40%;
+  z-index: 10;
+}
+.ladyimg img{
+  width: 95%;
+}
