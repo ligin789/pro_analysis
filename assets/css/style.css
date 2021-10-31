@@ -82,6 +82,12 @@ body {
   padding: 10px;
   margin: 30px 0px;
 }
+.custom-control1
+{
+  box-shadow:0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  margin-left: 10px;
+}
 ::-webkit-input-placeholder { /* Edge */
   font-style:bolder;
   padding-left: 10px;

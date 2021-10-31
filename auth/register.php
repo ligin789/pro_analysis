@@ -83,7 +83,7 @@
                 >Packages</a
               >
             </li>
-            <li class="nav-item mx-3">
+            <li class="btn nav-item mx-3">
               <a href="./login.html"><button>Sign in</button></a>
             </li>
           </ul>
@@ -99,24 +99,58 @@
         </div>
         <div class="subtext">Signup to make your admin account.</div>
         <div class="main-form">
-          <form action="login.php" method="POST">
-            <div class="form-group">
+          <form action="authentication.php" method="POST">
+            <div class="form-group d-flex">
+              <input
+                type="text"
+                class="form-control custom-control1"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="First Name"
+                name="firstname"
+              />
+              <input
+                type="text"
+                class="form-control custom-control1"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="Last Name"
+                name="lastname"
+              />
+            </div>
+            <div class="form-group d-flex">
               <input
                 type="email"
-                class="form-control custom-control"
+                class="form-control custom-control1"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
                 name="email"
               />
-            </div>
-            <div class="form-group">
+              <input
+                type="number"
+                class="form-control custom-control1"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="Enter Mobile"
+                name="mobile"
+              />
+            </div><div class="form-group d-flex">
               <input
                 type="password"
-                class="form-control custom-control"
-                id="exampleInputPassword1"
-                placeholder="Password"
+                class="form-control custom-control1"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="Enter Password"
                 name="password"
+              />
+              <input
+                type="password"
+                class="form-control custom-control1"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="Enter Password Again"
+                name="cpassword"
               />
             </div>
             <div class="form-group form-check">
@@ -129,7 +163,7 @@
                 >Agree Terms and conditions</label
               >
             </div>
-            <button type="submit" class="btn btn-primary button-sub">
+            <button type="submit" name="registerSubmit" class="btn btn-primary button-sub">
               Sign Up
             </button>
           </form>
@@ -142,7 +176,7 @@
 
     <div class="background-login position-relative">
       <img
-        src="./assets/vectors/backgroundlogin.svg"
+        src="./assets/vectors/backgroundregister.svg"
         class="position-absolute backgroundimg"
         alt=""
         srcset=""
