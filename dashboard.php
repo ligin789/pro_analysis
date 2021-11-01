@@ -4,11 +4,7 @@ include('cred/dbConnect.php');
 if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
     header("Location: auth/");
     die();
-} else {
-    if ($_SESSION["userDesignation"] != "Admin") {
-        header("Location: adminDashboard.php");
-        die();
-    }
+} else{
 
 ?>
 <!DOCTYPE html>
