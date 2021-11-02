@@ -21,6 +21,12 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../assets/css/style.css" />
+    <style>
+      body {
+        overflow-y: hidden;
+        overflow-x: hidden;
+      }
+    </style>
   </head>
 
   <body>
