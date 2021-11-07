@@ -208,6 +208,6 @@ color: var(--MainColor);
   right: 0px;
   max-width: 100%;
 }
-#neon_particles {
-  z-index: 5;
+.particle-class {
+  z-index: -1;
 }
