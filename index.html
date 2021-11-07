@@ -17,10 +17,12 @@
       crossorigin="anonymous"
     ></script>
 
+    <!-- Aos Cdn -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-
   </head>
   <body>
     <!-- Header Navbar -->
@@ -99,25 +101,139 @@
     </div>
     <!-- Header Navbar End -->
     <!--Main content-->
+   
     <div class="main-wrapper mx-auto my-3 d-flex">
       <div class="text-container text-light">
-        <h2>Meet your vistors,<br> follow in there Footsteps</h2>
+        <h2>
+          Meet your vistors,<br />
+          follow in there Footsteps
+        </h2>
         <h4>
-          Free Web Stats & Tools for your site to learn<br> about your visitors,
-          build a following, increase<br> sales and track your growth along the way.
+          Free Web Stats & Tools for your site to learn<br />
+          about your visitors, build a following, increase<br />
+          sales and track your growth along the way.
         </h4>
         <div class="button-group mt-3">
-          <button class="btn button-first mx-3">Give it a try</button>
+          <button class="btn button-first">Give it a try</button>
           <button class="btn button-second">Learn More</button>
         </div>
       </div>
-      <div class="img-container"><img src="./assets/vectors/landing1.png"  data-tilt class="" alt="" srcset="">
-       
+      <div class="img-container">
+        <img
+          src="./assets/vectors/landing1.png"
+          data-tilt
+          class=""
+          alt=""
+          srcset=""
+        />
       </div>
     </div>
     <!--Main content end-->
     <!--Key Features-->
-        <!--Tilt Js cdn-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.js"></script>
+    <div class="position-relative">
+      <div id="neon_particles" class="particle-class position-absolute w-100"></div>
+    </div>
+    <div class="keyfeaturesContainer mx-auto w-75">
+      <div class="keyfeatureHead">Key Features</div>
+      <div class="subheadKey">
+        Making the analytics world easier and simple for emerging markets.
+      </div>
+      <div class="feature-card mt-5">
+        <img src="./assets/vectors/graphical_reportcard.png" data-tilt  data-aos="fade-down-right" alt="" class="mx-3" srcset="" />
+        <img src="./assets/vectors/exportdatacard.png" alt="" data-tilt  data-aos="fade-down-right" class="mx-3" srcset="" />
+        <img src="./assets/vectors/visitorslocation.png" alt="" data-tilt  data-aos="fade-down-left" class="mx-3" srcset="" />
+        <img src="./assets/vectors/trackuseractivity.png" alt="" data-tilt  data-aos="fade-down-left" class="mx-3" srcset="" />
+      </div>
+    </div>
+    <!--Key Feature End-->
+    <div class="position-relative">
+      <div class="position-absolute" style="left: 100px;">
+        <img src="./assets/vectors/particle2.png" alt="" srcset="">
+      </div>
+    </div>
+    <!--Why Choose us-->
+    <div class="keyfeaturesContainer">
+      <div class="text-center mt-5 key-heading">
+          <div class="keyfeatureHead">Why Choose Us</span></div>
+      </div>
+      <div class="subheadKey">
+        Pro analysis is a secured, scalable, and improved version of google analytics.
+      </div>
+      <div class="subcontainer-odd">
+          <div class='img-wrapper' data-aos="fade-down-right" >
+            <img src="./assets/vectors/png1.png" data-tilt alt="png1">
+          </div>
+          <div class="text-justify my-auto" >
+              <div class="text-wrapper ml-5">
+                  <h4 class="section-title-dark">Summarized data representation using charts and graphs</h4>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur fermentum metus suscipit porttitor varius. 
+              </div>
+          </div>
+      </div>
+
+      <div class="subcontainer-even">
+         
+          <div class="text-justify  my-auto">
+              <div class="text-wrapper bigmargin">
+                  <h4 class="section-title-dark text-left">Beautiful & interactive dashboard</h4>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur fermentum metus suscipit porttitor varius. 
+              </div>
+          </div>
+          <div class='img-wrapper' data-aos="fade-down-left" >
+            <img src="./assets/vectors/png2.png" data-tilt alt="png2" srcset="">
+          </div>
+      </div>
+      <div class="subcontainer-odd">
+          <div class='img-wrapper'>
+            <img src="./assets/vectors/png3.png" data-tilt alt="png3" data-aos="fade-down-right">
+          </div>
+          <div class="text-justify my-auto" >
+              <div class="text-wrapper ml-5">
+                  <h4 class="section-title-dark">Export your data for future analysis</h4>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur fermentum metus suscipit porttitor varius. 
+              </div>
+          </div>
+      </div>
+      <div class="position-relative">
+        <div class="position-absolute" style="right:0;">
+          <img src="./assets/vectors/particle3.png" alt="" srcset="">
+        </div>
+      </div>
+
+      <div class="subcontainer-even">
+          <div class="text-justify my-auto" >
+              <div class="text-wrapper bigmargin">
+                  <h4 class="section-title-dark">Vistor’s data & bounce back percentage</h4>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur fermentum metus suscipit porttitor varius. 
+              </div>
+          </div>
+          <div class='img-wrapper mr-5' >
+            <img src="./assets/vectors/png4.png" data-tilt alt="png4" data-aos="fade-down-left">
+        </div>
+      </div>
+     
+  </div>
+  <div class="position-relative">
+    <div class="position-absolute">
+      <img src="./assets/vectors/particle4.png" alt="" srcset="">
+    </div>
+  </div>
+
+    <!--Why Choose End-->
+    <!--Aos-->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        offset: 200,
+        duration: 800,
+        easing: 'fade-down-right',
+        delay: 100,
+      });
+    </script>
+    <!--Particle js-->
+     <script src="./assets/libs/script/particles.js"></script>
+     <script src="./assets/libs/script/customparticle.js"></script>
+    <!--Tilt Js cdn-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.js"></script>
   </body>
 </html>

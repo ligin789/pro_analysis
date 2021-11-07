@@ -22,7 +22,7 @@ jQuery(document).ready(function($) {
             "nb_sides": 5
           },
           "image": {
-            "src": "./assets/Vectors/background-box.png",
+            "src": "./assets/vectors/particle1.png",
             "width": 100,
             "height": 100
           }

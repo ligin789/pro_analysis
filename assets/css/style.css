@@ -10,6 +10,15 @@
   --mainred: #e18c97;
   --darkBlue: #00468a;
 }
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--MainColor);
+  border-radius: 10px;
+}
+
 
 .bg-darkblue {
   background-color: var(--darkBlue);
@@ -40,6 +49,8 @@ html {
 body {
   font-family: "Poppins" sans-serif;
   color: var(--MainColor);
+  overflow-x: hidden;
+
 }
 .headerlogo {
   width: 80%;
@@ -161,4 +172,42 @@ color: var(--MainColor);
   background-color: #dc787f;
   color: white;
   cursor: pointer;
+}
+.keyfeaturesContainer
+{
+  margin-top: 100px;
+  align-items: center;
+  text-align: center;
+}
+.subheadKey
+{
+  font-weight: 600;
+  font-size: 20px;
+}
+.subcontainer-odd ,.subcontainer-even {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  align-items: center;
+}
+.img-wrapper img{
+  margin-left: 130px;
+}
+.text-wrapper
+{
+  width: 60%;
+}
+.bigmargin
+{
+  margin-left: 250px;
+}
+.subcontainer-even
+{
+  margin-right: 0px;
+  right: 0px;
+  max-width: 100%;
+}
+#neon_particles {
+  z-index: 5;
 }
