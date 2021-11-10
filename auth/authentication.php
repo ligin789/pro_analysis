@@ -33,7 +33,7 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
                         $password=md5($password);
                         $date=date("Y-m-d");
                         //Insert into database
-                        $insertDb="INSERT INTO `tbl_user`(`user_email`, `user_name`, `user_mobile`, `user_password`, `user_created_at`) VALUES ('$email','$name','$mobile','$password',$date)";
+                        $insertDb="INSERT INTO `tbl_user`(`user_email`, `user_name`, `user_mobile`, `user_password`, `user_created_at`) VALUES ('$email','$name','$mobile','$password','$date')";
                         $insertDbResult=mysqli_query($connect,$insertDb);
                         if($insertDbResult)
                         {
@@ -90,6 +90,7 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
                 $userData=mysqli_fetch_assoc($checkLoginResult);
                 $_SESSION['proAnalysisSession'] = session_id();
                 $_SESSION['userName'] = $userData['user_name'];
+                $_SESSION['userID'] = $userData['user_id'];
                 header("Location: ../dashboard.php");
                 die();
             }

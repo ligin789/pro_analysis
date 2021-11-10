@@ -1,3 +1,4 @@
 <?php
-if(isset())
+$date=date("Y-m-d");
+echo $date;
 ?>

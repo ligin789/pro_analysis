@@ -7,11 +7,22 @@ body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
 }
+:root {
+    --MainColor: #45519b;
+    --mainred: #e18c97;
+    --darkBlue: #00468a;
+  }
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--MainColor);
+    border-radius: 10px;
+  }
 
 p {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
-    font-weight: 300;
     line-height: 1.7em;
     color: #999;
 }
@@ -63,7 +74,7 @@ span {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #7386D5;
+    background:  var(--MainColor);
     color: #fff;
     transition: all 0.3s;
 }
@@ -115,7 +126,12 @@ span {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6d7fcc;
+    background: #dddddd;
+}
+.btnInfo
+{
+    background-color:var(--MainColor);
+    color: #fff;
 }
 
 #sidebar .sidebar-header strong {
