@@ -81,7 +81,7 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
 
     ?>
     <!-- Main Content -->
-    <div class="d-flex">
+    <div class="contents">
       <div class="main-content">
         <div class="maintext">
           <h2>Hello !</h2>
@@ -116,8 +116,8 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
       </div>
     </div>
 
-    <div class="background-login position-relative">
-      <img src="../assets/vectors/backgroundregister.svg" class="position-absolute backgroundimg" alt="" srcset="" />
+    <div class="background-login">
+      <img src="../assets/vectors/backgroundregister.svg" class="backgroundimg" alt="" srcset="" />
     </div>
     <script src="../assets/scripts/bootstrap.min.js"></script>
   </body>

@@ -19,7 +19,6 @@
   border-radius: 10px;
 }
 
-
 .bg-darkblue {
   background-color: var(--darkBlue);
 }
@@ -50,7 +49,6 @@ body {
   font-family: "Poppins" sans-serif;
   color: var(--MainColor);
   overflow-x: hidden;
-
 }
 .headerlogo {
   width: 80%;
@@ -59,15 +57,21 @@ body {
   position: absolute;
   width: 100%;
   z-index: -10;
-  bottom: -62px;
+  bottom: 0;
+}
+.contents{
+  display: flex;
+  align-items: center;
+  margin-top: 5%;
 }
 .main-content {
+  flex:1;
   background-color: white;
-  width: 40%;
+  height:60vh;
   border-radius: 10px;
-  margin: 45px 20px 20px 100px;
+  margin: 0 20px 0 140px;
   padding: 60px 40px 60px 40px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: 0px 20px 40px rgba(61, 61, 61, 0.1);
 }
 .maintext h2 {
   font-weight: 700;
@@ -99,18 +103,26 @@ body {
   margin-bottom: 10px;
 }
 .ladyimg {
-  width: 40%;
+  flex:1;
   z-index: 10;
+  width:100%;
 }
 .ladyimg img {
-  width: 95%;
+  width: 85%;
+  align-items: center;
 }
 /*Responsive*/
-@media only screen and (max-width: 1115px) {
+/* @media only screen and (max-width: 1115px) {
   .ladyimg img {
     width: 100%;
     bottom: 10px;
     position: absolute;
+  }
+} */
+
+@media only screen and (max-width:1600px){
+  .ladyimg img{
+    width:100%;
   }
 }
 @media only screen and (max-width: 821px) {
@@ -158,8 +170,8 @@ body {
   padding: 4px 15px;
 }
 .button-first:hover {
-background-color: white; 
-color: var(--MainColor);
+  background-color: white;
+  color: var(--MainColor);
 }
 .button-second {
   border: solid #dc787f 1px;
@@ -173,37 +185,33 @@ color: var(--MainColor);
   color: white;
   cursor: pointer;
 }
-.keyfeaturesContainer
-{
+.keyfeaturesContainer {
   margin-top: 100px;
   align-items: center;
   text-align: center;
 }
-.subheadKey
-{
+.subheadKey {
   font-weight: 600;
   font-size: 20px;
 }
-.subcontainer-odd ,.subcontainer-even {
+.subcontainer-odd,
+.subcontainer-even {
   margin-top: 60px;
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
   align-items: center;
 }
-.img-wrapper img{
+.img-wrapper img {
   margin-left: 130px;
 }
-.text-wrapper
-{
+.text-wrapper {
   width: 60%;
 }
-.bigmargin
-{
+.bigmargin {
   margin-left: 250px;
 }
-.subcontainer-even
-{
+.subcontainer-even {
   margin-right: 0px;
   right: 0px;
   max-width: 100%;
