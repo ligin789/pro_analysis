@@ -38,7 +38,7 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
           col-11 col-xl-10
           mx-auto
         ">
-        <a class="navbar-brand my-auto" href="#">
+        <a class="navbar-brand my-auto" href="../">
           <img src="../assets/vectors/MainLogo.svg" class="headerlogo" alt="MedclickLogo" />
         </a>
         <button class="navbar-toggler mr-n3 shadow9 bg-white border-0" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
 
     ?>
     <!-- Main Content -->
-    <div class="contents">
+    <div class="d-flex">
       <div class="main-content">
         <div class="maintext">
           <h2>Hello !</h2>
@@ -116,8 +116,8 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
       </div>
     </div>
 
-    <div class="background-login">
-      <img src="../assets/vectors/backgroundregister.svg" class="backgroundimg" alt="" srcset="" />
+    <div class="background-login position-relative">
+      <img src="../assets/vectors/backgroundregister.svg" class="position-absolute backgroundimg" alt="" srcset="" />
     </div>
     <script src="../assets/scripts/bootstrap.min.js"></script>
   </body>
