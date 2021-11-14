@@ -19,7 +19,6 @@
   border-radius: 10px;
 }
 
-
 .bg-darkblue {
   background-color: var(--darkBlue);
 }
@@ -50,7 +49,6 @@ body {
   font-family: "Poppins" sans-serif;
   color: var(--MainColor);
   overflow-x: hidden;
-
 }
 .headerlogo {
   width: 80%;
@@ -158,8 +156,8 @@ body {
   padding: 4px 15px;
 }
 .button-first:hover {
-background-color: white; 
-color: var(--MainColor);
+  background-color: white;
+  color: var(--MainColor);
 }
 .button-second {
   border: solid #dc787f 1px;
@@ -173,41 +171,46 @@ color: var(--MainColor);
   color: white;
   cursor: pointer;
 }
-.keyfeaturesContainer
-{
+.keyfeaturesContainer {
   margin-top: 100px;
   align-items: center;
   text-align: center;
 }
-.subheadKey
-{
+.subheadKey {
   font-weight: 600;
   font-size: 20px;
 }
-.subcontainer-odd ,.subcontainer-even {
+.subcontainer-odd,
+.subcontainer-even {
   margin-top: 60px;
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
   align-items: center;
 }
-.img-wrapper img{
+.img-wrapper img {
   margin-left: 130px;
 }
-.text-wrapper
-{
+.text-wrapper {
   width: 60%;
 }
-.bigmargin
-{
+.bigmargin {
   margin-left: 250px;
 }
-.subcontainer-even
-{
+.subcontainer-even {
   margin-right: 0px;
   right: 0px;
   max-width: 100%;
 }
 .particle-class {
   z-index: -1;
+}
+.cdn-container {
+  margin-top: 100px;
+  margin-left: 100px;
+}
+.cdn-box {
+  border: 1px solid #888;
+  outline: none;
+  resize: none;
 }

@@ -104,6 +104,6 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
             $_SESSION['loginMessage'] = "Please fill all fields";
             header("Location: index.php");
             die();
-        }
+        } 
 }
 }

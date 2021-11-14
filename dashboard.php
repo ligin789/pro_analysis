@@ -21,10 +21,10 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous" />
         <!-- Our Custom CSS -->
         <link rel="stylesheet" href="./assets/css/dashboardstyle.css" />
-
         <!-- Font Awesome JS -->
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
     </head>
 
     <body>
@@ -120,6 +120,10 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     </div>
                 </nav>
                 <!--Main content-->
+                <div class="cdn-container" id="cdn-container">
+                    <textarea class="cdn-box" id="cdn-box" cols="30" rows="10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, labore.</textarea>
+                    <button id="copyContent()" class="btn btnInfo"><i class="fas fa-clipboard"></i></button>
+                </div>
                 <div class="welcome-msg pt-1 pb-4">
                     <?php
                     date_default_timezone_set('Asia/Calcutta');
@@ -207,12 +211,13 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                         $.ajax({
                             url: "./server/manageWebsite.php",
                             type: "POST",
+                            dataType: "json",
                             data: {
                                 websiteName: $('#websiteName').val(),
                                 websiteUrl: $('#websiteUrl').val()
                             },
                             success: function(data, status) {
-                               alert(data);
+                                alert(data.message);
                             }
                         });
                     } else {
@@ -224,7 +229,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     $('#finalAlert').css('display', 'inline-block');
                 }
             }
-            //script for hiding salutation
+            //script for hiding salutation message
             setTimeout(changeGreeting, 4000);
 
             function changeGreeting() {
