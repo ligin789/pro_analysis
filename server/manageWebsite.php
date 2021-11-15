@@ -29,13 +29,38 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         if (mysqli_num_rows($checkDupResult) < 1) {
             $insertWebsite = "INSERT INTO `tbl_website`(`user_id`, `website_name`, `website_domain`, `website_created_at`) VALUES ('$userID','$websiteName','$websiteUrl','$date')";
             if (mysqli_query($connect, $insertWebsite)) {
-                $websiteId=mysqli_insert_id($connect);
+                $websiteId = mysqli_insert_id($connect);
+                //emcryption of website id and user id
+                // Store the cipher method
+                $ciphering = "AES-128-CTR";
+                // Use OpenSSl Encryption method
+                $iv_length = openssl_cipher_iv_length($ciphering);
+                $options = 0;
+                // Non-NULL Initialization Vector for encryption
+                $encryption_iv = '1234567891011121';
+                // Store the encryption key
+                $encryption_key = "SADCAT";
+                // Use openssl_encrypt() function to encrypt the data
+                $websiteID = openssl_encrypt(
+                    $websiteId,
+                    $ciphering,
+                    $encryption_key,
+                    $options,
+                    $encryption_iv
+                );
+                $USERID = openssl_encrypt(
+                    $userID,
+                    $ciphering,
+                    $encryption_key,
+                    $options,
+                    $encryption_iv
+                );
                 $data = array("status" => "1", "message" => " <!--Analysis file (should be placed in head)-->
                 <!--Skip the jqueryfile if already exisit-->
                 <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
                 <script type='text/javascript'>
-                  let UserId = '".$userID."';
-                  let WebsiteId='".$websiteId."';
+                  let UserId = '" . $USERID . "';
+                  let WebsiteId='" . $websiteID . "';
                 </script>
                 <script src='https://proanalysis.000webhostapp.com/counter.js'></script>
                 <!--End of Analysis file-->");
@@ -47,6 +72,20 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
             $data = array("status" => "3", "message" => "Website already exisit");
         }
         echo json_encode($data);
-        
     }
 }
+
+                // // Non-NULL Initialization Vector for decryption
+                // $decryption_iv = '1234567891011121';
+                // // Store the decryption key
+                // $decryption_key = "GeeksforGeeks";
+                // // Use openssl_decrypt() function to decrypt the data
+                // $decryption = openssl_decrypt(
+                //     $encryption,
+                //     $ciphering,
+                //     $decryption_key,
+                //     $options,
+                //     $decryption_iv
+                // );
+                // // Display the decrypted string
+                // echo "Decrypted String: " . $decryption;

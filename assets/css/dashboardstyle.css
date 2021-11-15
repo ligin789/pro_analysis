@@ -269,12 +269,19 @@ a.article:hover {
   }
 }
 .cdn-container {
-  margin-top: 100px;
-  margin-left: 100px;
+  margin-top: 30px;
+  margin-left: 80px;
 }
 .cdn-box {
-  border: 1px solid #888;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border:none;
+  border-radius: 10px;
   outline: none;
   resize: none;
+  padding: 15px 0px 0px 15px;
   font-style: italic;
+}
+.cdn-box:focus {
+  outline: none;
+  box-shadow: rgba(91, 15, 190, 0.336) 0px 7px 29px 0px;
 }
