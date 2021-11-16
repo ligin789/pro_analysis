@@ -27,7 +27,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
 
     </head>
 
-    <body>
+    <body onload="loadWebsite()">
         <div class="wrapper">
             <!-- Sidebar  -->
             <?php include('layout/dashBoardHead.php'); ?>
@@ -72,7 +72,17 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     }
                     ?>
                 </div>
-                
+                <div class="heading-content" id="heading-content">
+                    <!--Each small box-->
+                    <div class="dash-box d-flex mt-2" data-tilt>
+                        <div class="content-text">
+                            <div class="dailyCount">1,504</div>Daily Views
+                        </div>
+                        <div class="icon-container ml-2 mt-3 text-secondary">
+                            <i class="fas fa-eye fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -90,81 +100,22 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     $("#sidebar").toggleClass("active");
                 });
             });
-            //copy textarea content
-            const copyContent = () => {
-                let textarea = document.querySelector('#cdn-box');
-                textarea.select();
-                document.execCommand('copy');
-                $('#copyContent').text('Copied!');
-                setTimeout(() => {
-                    $('#copyContent').text('Copy');
-                }, 2000);
-            }
-
-            //check Url exisit or not
-            function checkWebsite(Url) {
-                //hide all icon and start loading
-                $('#WebsiteError').css('display', 'none');
-                $('#websiteSuccess').css('display', 'none');
-                $('#websiteLoading').css('display', 'inline-block');
-                //check using ajax
+            const loadWebsite = () => {
+                let contte = 'fdsfsdgdgs';
                 $.ajax({
                     url: "./server/manageWebsite.php",
                     type: "POST",
+                    dataType: "json",
                     data: {
-                        Url: Url.value
+                        onLoadContent: contte
                     },
                     success: function(data, status) {
-                        $('#websiteLoading').css('display', 'none');
-                        if (data == 404) {
-                            websiteStatus = false;
-                            $('#WebsiteError').css('display', 'inline-block');
-
-                        } else if (data == 200) {
-                            websiteStatus = true;
-                            $('#websiteSuccess').css('display', 'inline-block');
-                        }
+                        alert("ji");
+                        $('#heading-content').html(data.items);
                     }
                 });
             }
-            //Submit create cdn
-            const createCdn = () => {
-                $('#finalAlert').css('display', 'none');
-                //check website status
-                if (websiteStatus) {
-                    //check website name is empty or not
-                    if ($('#websiteName').val() != '') {
-                        $.ajax({
-                            url: "./server/manageWebsite.php",
-                            type: "POST",
-                            dataType: "json",
-                            data: {
-                                websiteName: $('#websiteName').val(),
-                                websiteUrl: $('#websiteUrl').val()
-                            },
-                            success: function(data, status) {
-                                if (data.status == 1) {
-                                    $('#dashboardContainer').css('display', 'none');
-                                    $('#clipboardContainer').css('display', 'block');
-                                    document.getElementById("cdn-box").innerHTML = data.message;
-                                } else if (data.status == '2') {
-                                    document.getElementById("finalAlert").innerHTML = data.message;
-                                    $('#finalAlert').css('display', 'inline-block');
-                                } else if (data.status == '3') {
-                                    document.getElementById("finalAlert").innerHTML = data.message;
-                                    $('#finalAlert').css('display', 'inline-block');
-                                }
-                            }
-                        });
-                    } else {
-                        $('#finalAlert').html('Website name is required');
-                        $('#finalAlert').css('display', 'inline-block');
-                    }
-                } else {
-                    $('#finalAlert').html('Website Url invalid');
-                    $('#finalAlert').css('display', 'inline-block');
-                }
-            }
+
             //script for hiding salutation message
             setTimeout(changeGreeting, 4000);
 

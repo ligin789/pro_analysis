@@ -73,6 +73,29 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         }
         echo json_encode($data);
     }
+    //load registered website on load
+    if (isset($_POST['onLoadContent'])) {
+
+        $userID = $_SESSION['userID'];
+
+        $getWebsite = "SELECT * FROM tbl_website WHERE `user_id` = '$userID' and website_status!=0";
+        $getWebsiteResult = mysqli_query($connect, $getWebsite);
+        $items='';
+        if (mysqli_num_rows($getWebsiteResult) > 0) {
+            while ($row = mysqli_fetch_assoc($getWebsiteResult)) {
+                $items .= "<div class='dash-box d-flex mt-2' data-tilt>
+               <div class='content-text'>
+                   <div class='dailyCount'>1,504</div>bb
+               </div>
+               <div class='icon-container ml-2 mt-3 text-secondary'>
+                   <i class='fas fa-eye fa-3x'></i>
+               </div>
+             </div>";
+            }
+            $data = array("status" => "1", "message" => "success", "items" => $items);
+            echo json_encode($data);
+        }
+    }
 }
 
                 // // Non-NULL Initialization Vector for decryption

@@ -289,16 +289,19 @@ a.article:hover {
 .heading-content {
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 .dash-box {
   border-radius: 10px;
   padding: 30px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
   min-width: 100px;
+  transition: all 0.3s;
 }
 .dash-box:hover {
   background-color: #aaaec5;
   color: #fff;
+  transform: translate3d(10%,10%) scale(0.3);
 }
 .dash-box .dailyCount {
   font-size: 50px;
