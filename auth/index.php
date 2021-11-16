@@ -44,20 +44,8 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item mx-3">
-              <a class="nav-link active" id="home" onclick="menuClick(this.id)" href="#">What We Offer</a>
-            </li>
-
-            <li class="nav-item mx-3">
-              <a class="nav-link" id="contactUs" onclick="menuClick(this.id)" href="#contactUsSection">About us</a>
-            </li>
-            <li class="nav-item mx-3">
-              <a class="nav-link" id="roadmap" onclick="menuClick(this.id)" href="#roadmap">Why ProAnalysis</a>
-            </li>
-            <li class="nav-item mx-3">
-              <a class="nav-link" id="packges" onclick="menuClick(this.id)" href="#roadmap">Packages</a>
-            </li>
+          <ul class="navbar-nav ml-auto">
+            
             <li class="nav-item mx-3">
               <a href="./register.php" class="btn"><button>Sign up</button></a>
             </li>
@@ -80,6 +68,17 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
 
     ?>
     <!-- Main Content -->
+    <div class="position-relative">
+      <div class="position-absolute" style="left: 50px; z-index:-1">
+        <img src="../assets/vectors/particle2.png" alt="" srcset="">
+      </div>
+      <div class="position-absolute" style="right: 50px; bottom:10px; z-index:-1">
+        <img src="../assets/vectors/particle1.png" alt="" srcset="">
+      </div>
+      <div class="position-absolute" style="right: 50px; top:150px; z-index:-1">
+        <img src="../assets/vectors/particle3.png" alt="" srcset="">
+      </div>
+    </div>
     <div class="d-flex">
       <div class="main-content">
         <div class="maintext">

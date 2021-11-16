@@ -72,42 +72,64 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     }
                     ?>
                 </div>
-                <div id="dashboardContainer">
-                    <div class="form-group col-5">
-                        <h2 class="my-3">Add New Website</h2>
-                        <input type="text" class="form-control" id="websiteName" aria-describedby="emailHelp" placeholder="Enter your Website name" />
+                <div class="dashboardContent">
+                    <div class="heading-content">
+                        <!--Each small box-->
+                        <div class="dash-box d-flex" data-tilt>
+                            <div class="content-text">
+                                <div class="dailyCount">1,504</div>Daily Views
+                            </div>
+                            <div class="icon-container ml-2 mt-3 text-secondary">
+                                <i class="fas fa-eye fa-3x"></i>
+                            </div>
+                        </div>
+                        <!--Each small box-->
+                        <div class="dash-box d-flex" data-tilt>
+                            <div class="content-text">
+                                <div class="dailyCount">10</div>No of Website
+                            </div>
+                            <div class="icon-container ml-2 mt-3 text-secondary">
+                                <i class="fas fa-briefcase fa-3x"></i>
+                            </div>
+                        </div>
+                        <!--Each small box-->
+                        <div class="dash-box d-flex" data-tilt>
+                            <div class="content-text">
+                                <div class="dailyCount">1,504</div>Daily Views
+                            </div>
+                            <div class="icon-container ml-2 mt-3 text-secondary">
+                                <i class="fas fa-eye fa-3x"></i>
+                            </div>
+                        </div>
+                        <!--Each small box-->
+                        <div class="dash-box d-flex" data-tilt>
+                            <div class="content-text">
+                                <div class="dailyCount">1,504</div>Daily Views
+                            </div>
+                            <div class="icon-container ml-2 mt-3 text-secondary">
+                                <i class="fas fa-eye fa-3x"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group my-4 col-5 d-flex">
-                        <input type="text" class="form-control" id="websiteUrl" placeholder="Enter Website Url" onblur="checkWebsite(this)" />
-                        <span id="WebsiteError" style="display: none;" class="mt-2 pl-4 text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
-                        <span id="websiteSuccess" style="display: none;" class="mt-2 pl-4 text-success"><i class="fa fa-check" aria-hidden="true"></i>
-                        </span>
-                        <span id="websiteLoading" style="display: none;" class="mt-2 pl-4 text-warning">
-                            <i class="fas fa-circle-notch fa-spin"></i>
-                        </span>
+                    <!--end of small box-->
+                    <!--charts-->
+                    <div class="chart-main-container">
+                        <div class="chartContiner">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                        <div class="barchart">
+                            <canvas id="bar-chart"></canvas>
+                        </div>
                     </div>
-
-                    <button type="button" onclick="createCdn()" class="btn btn-primary ml-3">Create CDN</button>
-                    <span id="finalAlert" class="ml-2 text-danger" style="display: none;">Hello</span>
-                </div>
-                <!--Clipboard content start-->
-                <div id="clipboardContainer" style="display: none;">
-                    <div class="text-info">*****Copy the code and place in your website*****</div>
-                    <div class='cdn-container' id='cdn-container'>
-                        <textarea class='cdn-box' id='cdn-box' cols='100' rows='10'> <!--Analysis file (should be placed in head)-->
-                <!--Skip the jqueryfile if already exisit-->
-                <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
-                <script type='text/javascript'>
-                  let UserId = 'qg==';
-                  let WebsiteId='qtI=';
-                </script>
-                <script src='https://proanalysis.000webhostapp.com/counter.js'></script>
-                <!--End of Analysis file--></textarea>
-                        <button id='copyContent' onclick="copyContent()" class='btn btnInfo mb-4'><i class='fas fa-clipboard'></i></button>
-                    </div>
+                    <!--end charts-->
                 </div>
             </div>
         </div>
+
+        <!-- char js CDN - Full-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script src="./assets/scripts/chart.js"></script>
 
         <!-- jQuery CDN - Full-->
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -115,6 +137,8 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
         <!-- Bootstrap JS -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.js"></script>
+
 
         <script type="text/javascript">
             let websiteStatus = false;

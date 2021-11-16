@@ -72,7 +72,40 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     }
                     ?>
                 </div>
-                
+                <div id="dashboardContainer">
+                    <div class="form-group col-5">
+                        <h2 class="my-3">Add New Website</h2>
+                        <input type="text" class="form-control" id="websiteName" aria-describedby="emailHelp" placeholder="Enter your Website name" />
+                    </div>
+                    <div class="form-group my-4 col-5 d-flex">
+                        <input type="text" class="form-control" id="websiteUrl" placeholder="Enter Website Url" onblur="checkWebsite(this)" />
+                        <span id="WebsiteError" style="display: none;" class="mt-2 pl-4 text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+                        <span id="websiteSuccess" style="display: none;" class="mt-2 pl-4 text-success"><i class="fa fa-check" aria-hidden="true"></i>
+                        </span>
+                        <span id="websiteLoading" style="display: none;" class="mt-2 pl-4 text-warning">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                        </span>
+                    </div>
+
+                    <button type="button" onclick="createCdn()" class="btn btn-primary ml-3">Create CDN</button>
+                    <span id="finalAlert" class="ml-2 text-danger" style="display: none;">Hello</span>
+                </div>
+                <!--Clipboard content start-->
+                <div id="clipboardContainer" style="display: none;">
+                    <div class="text-info">*****Copy the code and place in your website*****</div>
+                    <div class='cdn-container' id='cdn-container'>
+                        <textarea class='cdn-box' id='cdn-box' cols='100' rows='10'> <!--Analysis file (should be placed in head)-->
+                <!--Skip the jqueryfile if already exisit-->
+                <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+                <script type='text/javascript'>
+                  let UserId = 'qg==';
+                  let WebsiteId='qtI=';
+                </script>
+                <script src='https://proanalysis.000webhostapp.com/counter.js'></script>
+                <!--End of Analysis file--></textarea>
+                        <button id='copyContent' onclick="copyContent()" class='btn btnInfo mb-4'><i class='fas fa-clipboard'></i></button>
+                    </div>
+                </div>
             </div>
         </div>
 

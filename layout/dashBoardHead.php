@@ -1,10 +1,12 @@
 <nav id="sidebar">
-    <div class="sidebar-header">
-        <h3>
-            <img src="./assets/vectors/MainLogo.svg" alt="MainLogo" style="width: 200px" />
-        </h3>
-        <strong><img src="./assets/vectors/Logo.svg" alt="logo" style="width: 40px" /></strong>
-    </div>
+    <a href="dashboard.php">
+        <div class="sidebar-header">
+            <h3>
+                <img src="./assets/vectors/MainLogo.svg" alt="MainLogo" style="width: 200px" />
+            </h3>
+            <strong><img src="./assets/vectors/Logo.svg" alt="logo" style="width: 40px" /></strong>
+        </div>
+    </a>
 
     <ul class="list-unstyled components">
         <li class="active">
@@ -14,7 +16,7 @@
             </a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="./dashboard.php">Add New Website</a>
+                    <a href="./addnewwebsite.php">Add New Website</a>
                 </li>
                 <li>
                     <a href="./viewWebsite.php">View Website</a>
