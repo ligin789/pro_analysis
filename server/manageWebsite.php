@@ -83,9 +83,9 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         $items='';
         if (mysqli_num_rows($getWebsiteResult) > 0) {
             while ($row = mysqli_fetch_assoc($getWebsiteResult)) {
-                $items .= "<div class='dash-box d-flex mt-2' data-tilt>
+                $items .= "<div class='dash-box d-flex mt-2'>
                <div class='content-text'>
-                   <div class='dailyCount'>1,504</div>bb
+                   <div class=''>".substr($row['website_name'],0,7)."</div>bb
                </div>
                <div class='icon-container ml-2 mt-3 text-secondary'>
                    <i class='fas fa-eye fa-3x'></i>
