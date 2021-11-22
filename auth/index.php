@@ -45,7 +45,7 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav ml-auto">
-            
+
             <li class="nav-item mx-3">
               <a href="./register.php" class="btn"><button>Sign up</button></a>
             </li>

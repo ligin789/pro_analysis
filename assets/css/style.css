@@ -268,3 +268,9 @@ body {
 .custom-shape-divider-top-1624109078 .shape-fill {
   fill: #FFFFFF;
 }
+.content-text-nobreak
+{
+  line-break: normal;
+  min-width: 40px;
+  width: 40px;
+}

@@ -21,7 +21,9 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous" />
         <!-- Our Custom CSS -->
         <link rel="stylesheet" href="./assets/css/dashboardstyle.css" />
+
         <!-- Font Awesome JS -->
+
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
@@ -72,17 +74,65 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     }
                     ?>
                 </div>
-                <div class="heading-content" id="heading-content">
+                <h2>Website You have registered</h2>
+                <div id="heading-content">
                     <!--Each small box-->
-                    <div id="anim" class="image-one">
-                    </div>
-
+                    <center>
+                        <div id="anim" class="image-one">
+                        </div>
+                    </center>
                 </div>
             </div>
         </div>
+        <!--Modal-->
 
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Your Website</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Website Name</label>
+                                <input type="text" class="form-control" id="website_name" aria-describedby="emailHelp" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Domain name</label>
+                                <input type="hidden" id="hiddenId">
+                                <input type="text" class="form-control" id="website_domain" onblur="checkWebsite(this)" placeholder="Password">
+                                <span id="WebsiteError" style="display: none;" class="mt-2 pl-4 text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+                                <span id="websiteSuccess" style="display: none;" class="mt-2 pl-4 text-success"><i class="fa fa-check" aria-hidden="true"></i>
+                                </span>
+                                <span id="websiteLoading" style="display: none;" class="mt-2 pl-4 text-warning">
+                                    <i class="fas fa-circle-notch fa-spin"></i>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <span id="finalAlert" class="ml-2 text-danger" style="display: none;"></span>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="updateCdn()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end Modal-->
         <script src="./assets/scripts/lottie.js"></script>
         <script src="./assets/scripts/app.js"></script>
+
+        <!--- Top Bar  -->
+        <script src="./assets/scripts/topbar.min.js"></script>
+        <!--- Top Bar  end-->
+
+        <!-- data table CDN - Full-->
+
         <!-- jQuery CDN - Full-->
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <!-- Popper.JS -->
@@ -92,6 +142,85 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
 
         <script type="text/javascript">
             let websiteStatus = false;
+
+            //editItem
+            const editItem = (ItemID) => {
+                let itemid = ItemID.value;
+                $.ajax({
+                    url: "./server/manageWebsite.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        editItem: "load",
+                        itemid: itemid
+                    },
+                    success: function(data, status) {
+                        $('#website_name').val(data.website_name);
+                        $('#website_domain').val(data.domain);
+                        $('#hiddenId').val(data.itemid);
+                        $('#exampleModal').modal('show');
+                    }
+                });
+            }
+            //check url exisit
+            function checkWebsite(Url) {
+                //hide all icon and start loading
+                $('#WebsiteError').css('display', 'none');
+                $('#websiteSuccess').css('display', 'none');
+                $('#websiteLoading').css('display', 'inline-block');
+                //check using ajax
+                $.ajax({
+                    url: "./server/manageWebsite.php",
+                    type: "POST",
+                    data: {
+                        Url: Url.value
+                    },
+                    success: function(data, status) {
+                        $('#websiteLoading').css('display', 'none');
+                        if (data == 404) {
+                            websiteStatus = false;
+                            $('#WebsiteError').css('display', 'inline-block');
+
+                        } else if (data == 200) {
+                            websiteStatus = true;
+                            $('#websiteSuccess').css('display', 'inline-block');
+                        }
+                    }
+                });
+            }
+            //update
+            //Submit create cdn
+            const updateCdn = async () => {
+                let webDomain = $('#website_domain');
+                $('#finalAlert').css('display', 'none');
+                //check website status
+                checkWebsite();
+                if (websiteStatus) {
+                    //check website name is empty or not
+                    if ($('#website_name').val() != '') {
+                        $.ajax({
+                            url: "./server/manageWebsite.php",
+                            type: "POST",
+                            data: {
+                                HiddenId: $('#hiddenId').val(),
+                                UwebsiteName: $('#website_name').val(),
+                                UwebsiteUrl: $('#website_domain').val()
+                            },
+                            success: function(data, status) {
+                                topbarLoading();
+                                $('#exampleModal').modal('hide');
+                                loadWebsite();
+                            }
+                        });
+                    } else {
+                        $('#finalAlert').html('Website name is required');
+                        $('#finalAlert').css('display', 'inline-block');
+                    }
+                } else {
+                    $('#finalAlert').html('Website Url invalid');
+                    $('#finalAlert').css('display', 'inline-block');
+                }
+            }
             $(document).ready(function() {
                 $("#sidebarCollapse").on("click", function() {
                     $("#sidebar").toggleClass("active");
@@ -110,7 +239,22 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                         setTimeout(() => {
                             $('#heading-content').html(data.items);
                         }, 1500);
-                        
+
+                    }
+                });
+            }
+            const deleteItem = (ItemId) => {
+                let itemid = ItemId.value;
+                $.ajax({
+                    url: "./server/manageWebsite.php",
+                    type: "POST",
+                    data: {
+                        deleteItem: "delete",
+                        itemid: itemid
+                    },
+                    success: function(data, status) {
+                        topbarLoading();
+                        loadWebsite();
                     }
                 });
             }
@@ -121,7 +265,34 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
             function changeGreeting() {
                 document.getElementById('greetingMessage').innerHTML = "<i class='mdi mdi-view-dashboard'></i> Dashboard";
             }
+            //topbar notification
+            const topbarLoading = () => {
+                topbar.config({
+                    autoRun: false,
+                    barThickness: 5,
+                    barColors: {
+                        '0': 'rgba(26,  188, 156, .7)',
+                        '.3': 'rgba(41,  128, 185, .7)',
+                        '1.0': 'rgba(231, 76,  60,  .7)'
+                    },
+                    shadowBlur: 5,
+                    shadowColor: 'rgba(0, 0, 0, .5)',
+                    className: 'topbar',
+                })
+                topbar.show();
+                (function step() {
+                    setTimeout(function() {
+                        if (topbar.progress('+.01') < 1) step()
+                    }, 16)
+                })()
+                setTimeout(() => {
+                    topbar.hide();
+                }, 2000);
+            }
         </script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"></script>
     </body>
 
     </html>
