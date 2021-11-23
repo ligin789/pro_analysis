@@ -160,11 +160,31 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     }
                 });
             }
+            //extract domain name
+            function extractHostname(url) {
+                var hostname;
+                //find & remove protocol (http, ftp, etc.) and get hostname
+
+                if (url.indexOf("//") > -1) {
+                    hostname = url.split('/')[2];
+                } else {
+                    hostname = url.split('/')[0];
+                }
+
+                //find & remove port number
+                hostname = hostname.split(':')[0];
+                //find & remove "?"
+                hostname = hostname.split('?')[0];
+
+                return hostname;
+            }
             //Submit create cdn
             const createCdn = () => {
                 $('#finalAlert').css('display', 'none');
                 //check website status
                 if (websiteStatus) {
+                    let domain_name=extractHostname($('#websiteUrl').val());
+
                     //check website name is empty or not
                     if ($('#websiteName').val() != '') {
                         $.ajax({
@@ -173,7 +193,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                             dataType: "json",
                             data: {
                                 websiteName: $('#websiteName').val(),
-                                websiteUrl: $('#websiteUrl').val()
+                                websiteUrl: domain_name
                             },
                             success: function(data, status) {
                                 if (data.status == 1) {
