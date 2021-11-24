@@ -43,11 +43,12 @@ if(isset($_POST['websiteid']) and isset($_POST['userid']) and isset($_POST['brow
             //check whether hosted domain and registed are same
             if($currentdomain==$savedWebsitedomain and $savedUserID==$userIdOrginal)
             {
-                $insertIntoDB="";
+                $date = date("Y-m-d");
+                $insertIntoDB="INSERT INTO `tbl_data`(`data_user_id`, `data_website_id`, `data_Contient_name`, `data_ip`, `os_name`, `data_browser`, `data_device_type`, `data_country`, `data_browser_version`, `data_timezone`, `data_created_at`, `data_network_provider`) VALUES 
+                ('$userIdOrginal','$currentdomain','$continment','$ipAddress','$osName','$browser_name','$devicetype','$country_name','$browser_version','$timeZone','$date','$network_provider')";
                 $insertResult=mysqli_query($connect,$insertIntoDB);
             }
         }
         $data = array("websiteid" => $websiteidOrginal, "userid" => $userIdOrginal);
         echo json_encode($data);
 }
-?>

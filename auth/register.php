@@ -26,6 +26,10 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
         overflow-y: hidden;
         overflow-x: hidden;
       }
+
+      .custom-warning::placeholder {
+        color: red !important;
+      }
     </style>
   </head>
 
@@ -87,21 +91,21 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
         </div>
         <div class="subtext" id="subtext">Signup to make your admin account.</div>
         <div class="main-form">
-          <form action="./authentication.php" method="POST">
+          <form action="./authentication.php" method="POST" name="registerForm">
             <div class="form-group d-flex">
-              <input type="text" class="form-control custom-control1" id="firstname" aria-describedby="emailHelp" placeholder="First Name" name="firstname" required />
-              <input type="text" class="form-control custom-control1" id="lastname" aria-describedby="emailHelp" placeholder="Last Name" name="lastname" required />
+              <input type="text" class="form-control custom-control1" onblur="validate_name()" id="firstname" aria-describedby="emailHelp" placeholder="First Name" name="firstname" required />
+              <input type="text" class="form-control custom-control1" id="lastname" onblur="validate_lname()" aria-describedby="emailHelp" placeholder="Last Name" name="lastname" required />
             </div>
             <div class="form-group d-flex">
-              <input type="email" class="form-control custom-control1" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email" required />
-              <input type="number" class="form-control custom-control1" id="number" aria-describedby="emailHelp" placeholder="Enter Mobile" name="mobile" required />
+              <input type="email" class="form-control custom-control1" onblur="validate_email()" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email" required />
+              <input type="number" class="form-control custom-control1" id="number" onblur="validate_mobile()" aria-describedby="emailHelp" placeholder="Enter Mobile" name="mobile" required />
             </div>
             <div class="form-group d-flex">
-              <input type="password" class="form-control custom-control1" id="pass" aria-describedby="emailHelp" placeholder="Enter Password" name="password" required />
-              <input type="password" class="form-control custom-control1" id="cpass" aria-describedby="emailHelp" placeholder="Enter Password Again" name="cpassword" onblur="cpasswordValidate()" required />
+              <input type="password" class="form-control custom-control1" onblur="validate_password()" id="pass" aria-describedby="emailHelp" placeholder="Enter Password" name="password" required />
+              <input type="password" class="form-control custom-control1" id="cpass" onblur="validate_confirm()" aria-describedby="emailHelp" placeholder="Enter Password Again" name="cpassword" required />
             </div>
             <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1" required />
+              <input type="checkbox" class="form-check-input" id="exampleCheck1" name="checkBox" required />
               <label class="form-check-label" for="exampleCheck1">Agree Terms and conditions</label>
             </div>
             <button type="submit" name="registerSubmit" class="btn btn-primary button-sub">
@@ -120,6 +124,139 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
     </div>
     <script src="../assets/scripts/bootstrap.min.js"></script>
     <script src="../assets/scripts/app.js"></script>
+    <!--Validation for first name and lastname-->
+    <script>
+      function validate_name() {
+        var name = document.forms["registerForm"]["firstname"];
+        var pattern = /^[A-Za-z]+$/;
+        if (name.value == "") {
+          var error = "Please enter first name";
+          document.getElementById("firstname").placeholder = error;
+          document.getElementById("firstname").classList.add("custom-warning");
+          name.focus();
+          return false;
+        } else if (name.value.match(pattern)) {
+          document.getElementById("firstname").innerHTML = "";
+          document.registerForm.lastname.focus();
+          return true;
+        } else {
+          var error = "Invalid Name";
+          document.getElementById("firstname").value = "";
+          document.getElementById("firstname").placeholder = error;
+          name.focus();
+          return false;
+        }
+      }
+
+      function validate_lname() {
+        var name = document.forms["registerForm"]["lastname"];
+        var pattern = /^[A-Za-z]+$/;
+        if (name.value == "") {
+          var error = "Please enter last name";
+          document.getElementById("lastname").placeholder = error;
+          document.getElementById("lastname").classList.add("custom-warning");
+          name.focus();
+          return false;
+        } else if (name.value.match(pattern)) {
+          document.getElementById("lastname").innerHTML = "";
+          document.registerForm.email.focus();
+          return true;
+        } else {
+          var error = "Invalid Name";
+          document.getElementById("lastname").value = "";
+          document.getElementById("lastname").placeholder = error;
+          name.focus();
+          return false;
+        }
+      }
+      //validation for email
+      function validate_email() {
+        var gmail = document.forms["registerForm"]["email"];
+        var pattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
+        if (gmail.value == "") {
+          var error = "Please enter your email";
+          document.getElementById("email").placeholder = error;
+          document.getElementById("email").classList.add("custom-warning");
+          document.form.email.focus();
+          return false;
+        } else if (gmail.value.match(pattern)) {
+          document.getElementById("email").innerHTML = "";
+          document.form.mobile.focus();
+          return true;
+        } else {
+          document.getElementById("email").value = "";
+          document.getElementById("email").placeholder = "Invalid email";
+          document.form.email.focus();
+          return false;
+        }
+      }
+      //validation for phone
+      function validate_mobile() {
+        var name = document.forms["registerForm"]["mobile"];
+        var pattern = /^\(?([1-9]{1})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{5})$/;
+        if (name.value == "") {
+          var error = "Please enter your mobile number";
+          document.getElementById("number").placeholder = error;
+          document.getElementById("number").classList.add("custom-warning");
+          document.form.phone.focus();
+          return false;
+        } else if (name.value.match(pattern)) {
+          document.getElementById("number").innerHTML = "";
+          document.form.password.focus();
+          return true;
+        } else {
+          document.getElementById("number").value = "";
+          document.getElementById("number").placeholder = "Invalid mobile number";
+          document.form.phone.focus();
+          return false;
+        }
+      }
+      //validation for password & confirm password
+   
+      function validate_password() {
+        var name = document.forms["registerForm"]["password"];
+        var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (name.value == "") {
+          var error = "Please enter your password";
+          document.getElementById("pass").placeholder = error;
+          document.getElementById("pass").classList.add("custom-warning");
+          document.form.password.focus();
+          return false;
+        } else if (name.value.match(pattern)) {
+          document.getElementById("pass").innerHTML = "";
+          document.form.cpassword.focus();
+          return true;
+        } else {
+          document.getElementById("pass").value = "";
+          document.getElementById("pass").placeholder = "Invalid password";
+          document.form.password.focus();
+          return false;
+        }
+      }
+
+      function validate_confirm() {
+        var name1 = document.forms["registerForm"]["password"];
+        var name2 = document.forms["registerForm"]["cpassword"];
+
+        if (name2.value == "") {
+          var error = "Please enter password";
+          document.getElementById("cpass").placeholder = error;
+          document.getElementById("cpass").classList.add("custom-warning");
+          document.form.cpassword.focus();
+          return false;
+        } else if (name1.value == name2.value) {
+          document.getElementById("cpass").innerHTML = "";
+          document.form.checkBox.focus();
+          return true;
+        } else {
+          document.getElementById("cpass").value = "";
+          document.getElementById("cpass").placeholder = "Password doesnot match";
+          document.form.cpassword.focus();
+          return false;
+        }
+      }
+    </script>
+
   </body>
 
   </html>
