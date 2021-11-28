@@ -24,7 +24,7 @@
             </ul>
         </li>
         <li>
-            <a href="#">
+            <a href="./dailyAnalysis.php">
                 <i class="fas fa-briefcase"></i>
                 Daily analysis
             </a>

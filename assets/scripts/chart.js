@@ -1,15 +1,28 @@
 var ctx = document.getElementById("myChart").getContext('2d');
-var barchart = document.getElementById("bar-chart").getContext('2d');
+$.ajax({
+    url: "./server/analysis.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+        chartFetch: "chartFetch"
+    },
+    success: function(data, status) {
+        console.log(data[1]);
+    },
+    error: function (responseData, textStatus, errorThrown) {
+        console.log(responseData, textStatus, errorThrown);
+      }
+});
 
 var myChart = new Chart(ctx, {
     type: 'polarArea',
     data: {
         labels: [
-            'Red',
-            'Green',
-            'Yellow',
-            'Grey',
-            'Blue'
+            'Asia',
+            'Europe',
+            'Africa',
+            'America',
+            'Austrilla'
         ],
         datasets: [{
             label: 'My First Dataset',
@@ -24,3 +37,4 @@ var myChart = new Chart(ctx, {
         }]
     }
 });
+

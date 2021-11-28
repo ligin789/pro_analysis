@@ -101,13 +101,13 @@ span {
 #sidebar.active ul li a {
   padding: 20px 10px;
   text-align: center;
-  font-size: 0.85em;
+  font-size: 0.31em;
 }
 
 #sidebar.active ul li a i {
   margin-right: 0;
   display: block;
-  font-size: 1.8em;
+  font-size: 0.31em;
   margin-bottom: 5px;
 }
 
@@ -145,7 +145,7 @@ span {
 
 #sidebar ul li a {
   padding: 10px;
-  font-size: 1.1em;
+  font-size: 0.7em;
   display: block;
 }
 
@@ -188,7 +188,7 @@ ul.CTAs {
 
 ul.CTAs a {
   text-align: center;
-  font-size: 0.9em !important;
+  font-size: 0.7em !important;
   display: block;
   border-radius: 5px;
   margin-bottom: 5px;
@@ -259,7 +259,7 @@ a.article:hover {
     padding: 10px !important;
   }
   #sidebar ul li a i {
-    font-size: 1.3em;
+    font-size: 0.9em;
   }
   #sidebar {
     margin-left: 0;
@@ -304,7 +304,7 @@ a.article:hover {
   transform: translate3d(10%,10%) scale(0.3);
 }
 .dash-box .dailyCount {
-  font-size: 50px;
+  font-size: 30px;
   color: #45519b;
 }
 .chartContiner {
@@ -313,6 +313,13 @@ a.article:hover {
   margin: 40px 20px;
   border-radius: 30px;
   padding: 9px;
+}
+.tableContiner {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+  width: 95%;
+  margin: 40px 20px;
+  border-radius: 30px;
+  padding: 19px;
 }
 .barchart {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
