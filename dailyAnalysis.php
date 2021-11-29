@@ -133,12 +133,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
             //         }
             //     });
             // });
-            //load to another page
-            let loadcurrwebsite = (FormID) => {
-                let formID = FormID.name;
-                alert(formID);
-                formID.submit();
-            }
+           
         </script>
 
 

@@ -100,6 +100,9 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     <div class="heading-content" id="websiteLoad">
                         <div id="chartContainer" style="height: 370px; width: 100%;"></div>
                     </div>
+                    <div id="AllDataFeilds" class="tableContiner">
+
+                    </div>
                     <!--end of small box-->
 
                     <!--data table end-->
@@ -107,6 +110,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
             </div>
         </div>
         <script>
+           
             window.onload = function() {
 
                 var chart = new CanvasJS.Chart("chartContainer", {
@@ -128,14 +132,14 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                         type: "column",
                         name: "Total View",
                         indexLabel: "{y}",
-                        yValueFormatString: "$#0.##",
+                        yValueFormatString: "#0.##",
                         showInLegend: true,
                         dataPoints: <?php echo json_encode($dataPoints1, JSON_NUMERIC_CHECK); ?>
                     }, {
                         type: "column",
                         name: "Unique View",
                         indexLabel: "{y}",
-                        yValueFormatString: "$#0.##",
+                        yValueFormatString: "#0.##",
                         showInLegend: true,
                         dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>
                     }]
@@ -176,6 +180,22 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
             $(document).ready(function() {
                 $("#sidebarCollapse").on("click", function() {
                     $("#sidebar").toggleClass("active");
+                });
+            });
+            $(document).ready(function() {
+                $.ajax({
+                    url: "./server/analysis.php",
+                    type: "POST",
+                    data: {
+                        fetchAllDetailsEach: "fetchAllDetails",
+                        websiteId: <?php echo $websiteID; ?>
+                    },
+                    success: function(data, status) {
+                        $('#AllDataFeilds').html(data);
+                    },
+                    error: function(responseData, textStatus, errorThrown) {
+                        console.log(responseData, textStatus, errorThrown);
+                    }
                 });
             });
         </script>
