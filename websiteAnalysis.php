@@ -5,6 +5,37 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
     header("Location: auth/");
     die();
 } else {
+    if (isset($_POST['fetchNewWebsite'])) {
+        $websiteID = $_POST['fetchNewWebsite'];
+        //fetch date of last 7 days
+        $array = array();
+        $dataPoints1 = array();
+        $dataPoints2 = array();
+        array_push($array, date("Y-m-d", strtotime("-0 day")));
+        array_push($array, date("Y-m-d", strtotime("-1 day")));
+        array_push($array, date("Y-m-d", strtotime("-2 day")));
+        array_push($array, date("Y-m-d", strtotime("-3 day")));
+        array_push($array, date("Y-m-d", strtotime("-4 day")));
+        array_push($array, date("Y-m-d", strtotime("-5 day")));
+        array_push($array, date("Y-m-d", strtotime("-6 day")));
+        array_push($array, date("Y-m-d", strtotime("-7 day")));
+        foreach ($array as $date) {
+            $FetchDataMonth = "SELECT * from tbl_data where `data_website_id`='$websiteID' and `data_created_at`='$date' and `data_status`!=0";
+            $FetchDataMonthResult = mysqli_query($connect, $FetchDataMonth);
+            $count = mysqli_num_rows($FetchDataMonthResult);
+            $temparray = array("label" => $date, "y" => $count);
+            array_push($dataPoints1, $temparray);
+        }
+        foreach ($array as $date) {
+            $FetchDataMonth = "SELECT DISTINCT data_id from tbl_data where `data_website_id`='$websiteID' and `data_created_at`='$date' and `data_status`!=0";
+            $FetchDataMonthResult = mysqli_query($connect, $FetchDataMonth);
+            $count = mysqli_num_rows($FetchDataMonthResult);
+            $temparray = array("label" => $date, "y" => $count);
+            array_push($dataPoints2, $temparray);
+        }
+    } else {
+        header("Location: auth/logoutController.php");
+    }
 
 ?>
     <!DOCTYPE html>
@@ -63,31 +94,11 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 </nav>
                 <!--Main content-->
                 <div class="welcome-msg pt-1 pb-4">
-                    <h3>Your Website</h3>
+                    <h3>Website Analysis</h3>
                 </div>
                 <div class="dashboardContent">
                     <div class="heading-content" id="websiteLoad">
-                        <?php
-                        $userID = $_SESSION['userID'];
-                        $selectwebsite = "SELECT * from tbl_website where `user_id`='$userID' and `website_status`!=0";
-                        $sqlRes = mysqli_query($connect, $selectwebsite);
-                        if (mysqli_num_rows($sqlRes) > 0) {
-                            while ($row = mysqli_fetch_assoc($sqlRes)) {
-                                $websiteID = $row['website_id'];
-                                echo "<form action='websiteAnalysis.php' method='post' >
-                            <div class='dash-box d-flex'>
-                                <div class='content-text'>
-                                    <div class='dailyCount'></div>" . ucwords($row['website_name']) . "
-                                </div>
-                                <div class='icon-container ml-2 mt-3 text-secondary'>
-                                    <i class='fas fa-home fa-3x'></i>
-                                </div>
-                                <button type='submit' name='fetchNewWebsite'  class='btn btn-secondary ml-3' value='" .$websiteID . "'>View</button>
-                            </div>
-                        </form>";
-                            }
-                        }
-                        ?>
+                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
                     </div>
                     <!--end of small box-->
 
@@ -95,8 +106,56 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 </div>
             </div>
         </div>
+        <script>
+            window.onload = function() {
 
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    theme: "light2",
+                    title: {
+                        text: "Last 7 days View"
+                    },
+                    axisY: {
+                        includeZero: true
+                    },
+                    legend: {
+                        cursor: "pointer",
+                        verticalAlign: "center",
+                        horizontalAlign: "right",
+                        itemclick: toggleDataSeries
+                    },
+                    data: [{
+                        type: "column",
+                        name: "Total View",
+                        indexLabel: "{y}",
+                        yValueFormatString: "$#0.##",
+                        showInLegend: true,
+                        dataPoints: <?php echo json_encode($dataPoints1, JSON_NUMERIC_CHECK); ?>
+                    }, {
+                        type: "column",
+                        name: "Unique View",
+                        indexLabel: "{y}",
+                        yValueFormatString: "$#0.##",
+                        showInLegend: true,
+                        dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>
+                    }]
+                });
+                chart.render();
 
+                function toggleDataSeries(e) {
+                    if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                        e.dataSeries.visible = false;
+                    } else {
+                        e.dataSeries.visible = true;
+                    }
+                    chart.render();
+                }
+
+            }
+        </script>s
+
+        <!--canvas js-->
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
         <!-- jQuery CDN - Full-->
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -119,26 +178,6 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     $("#sidebar").toggleClass("active");
                 });
             });
-            // //load content of how many website
-            // $(document).ready(function() {
-            //     $.ajax({
-            //         url: './server/analysis.php',
-            //         type: 'POST',
-            //         dataType: 'json',
-            //         data: {
-            //             LoadWebsiteData: 'LoadWebsiteData'
-            //         },
-            //         success: function(data) {
-            //             $('#websiteLoad').html(data.data);
-            //         }
-            //     });
-            // });
-            //load to another page
-            let loadcurrwebsite = (FormID) => {
-                let formID = FormID.name;
-                alert(formID);
-                formID.submit();
-            }
         </script>
 
 

@@ -98,5 +98,5 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         }
         echo $data;
     }
-   
+
 }

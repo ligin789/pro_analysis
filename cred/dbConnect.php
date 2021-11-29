@@ -4,10 +4,10 @@
 // $path = str_replace('www', '', getcwd());
 // system('"'.$path'mysql\bin\mysqld.exe"');
 
-$username = "id17921288_root";
+$username = "root";
 $servername = "localhost";
-$password = "Puthiyedathu@123";
-$db = "id17921288_proanalysis";
+$password = "";
+$db = "pro_analysis";
 $connect = mysqli_connect($servername, $username, $password, $db);
 
 ?>
