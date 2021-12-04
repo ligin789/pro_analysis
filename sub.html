@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Heatmaps</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="./assets/scripts/heatmap.js"></script>
+  </head>
+  <body>
+    <div id="floating-panel">
+      <button id="toggle-heatmap">Toggle Heatmap</button>
+      <button id="change-gradient">Change gradient</button>
+      <button id="change-radius">Change radius</button>
+      <button id="change-opacity">Change opacity</button>
+    </div>
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-eXOq7RVQs2KO9Z8Sjd08Wl5uvCNXM1w&callback=initMap&libraries=visualization&v=weekly"
+      async
+    ></script>
+  </body>
+</html>

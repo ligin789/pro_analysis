@@ -16,6 +16,23 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>Pro Analysis | Dashboard</title>
         <link rel="icon" type="image/png" sizes="16x16" href="./assets/vectors/Logo.svg" />
+        <style>
+            #map {
+                height: 100%;
+                width: 100%;
+            }
+            .barchart button
+            {
+                background-color: #4CAF50;
+                color: white;
+                padding: 2px 5px;
+                margin: 1px 0;
+                border: none;
+                cursor: pointer;
+            }
+        </style>
+
+        <script src="./assets/scripts/heatmap.js"></script>
 
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous" />
@@ -26,6 +43,9 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         <!-- Font Awesome JS -->
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+        <style>
+
+        </style>
 
         <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvtz1GjcbeOzhVK9Q09SQXcicu8pi--_o&callback=initMap"></script> -->
 
@@ -123,32 +143,27 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                             <canvas id="myChart"></canvas>
                         </div>
                         <div class="barchart">
-                            <!-- <div id="map"></div> -->
+                            <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+                            <button onclick="changeGradient()">Change gradient</button>
+                            <button onclick="changeRadius()">Change radius</button>
+                            <button onclick="changeOpacity()">Change opacity</button>
+                            <div id="map"></div>
                         </div>
-                    </div>
-                    <!--end charts-->
-                    <!--data tables -->
-                    <div id="AllDataFeilds" class="tableContiner">
+                        
 
                     </div>
-
-                    <!--data table end-->
                 </div>
+                <!--end charts-->
+                <!--data tables -->
+                <div id="AllDataFeilds" class="tableContiner">
+
+                </div>
+
+                <!--data table end-->
             </div>
         </div>
-<!-- 
-        <script>
-            // Initialize and add the map
-            const uluru = {
-                lat: -25.344,
-                lng: 131.036
-            };
-            // The map, centered at Uluru
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 4,
-                center: uluru,
-            });
-        </script> -->
+        </div>
+
         <!-- char js CDN - Full-->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -185,10 +200,12 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
             function changeGreeting() {
                 document.getElementById('greetingMessage').innerHTML = "<i class='mdi mdi-view-dashboard'></i> Dashboard";
             }
+            /* Data points defined as an array of LatLng objects */
         </script>
         <script src="./ajaxRequest.js"></script>
         <script src="./assets/scripts/chart.js"></script>
-
+        <script async defer src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=visualization&callback=initMap">
+        </script>
     </body>
 
     </html>

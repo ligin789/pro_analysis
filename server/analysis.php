@@ -57,7 +57,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         $data = "<table id='exampleTable' class='uk-table uk-table-hover uk-table-striped' style='width:98%'>
         <thead id='thead'>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Website Name</th>
                 <th>Ip Address Of User</th>
                 <th>Country</th>
@@ -105,7 +105,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         $data = "<table id='exampleTable' class='uk-table uk-table-hover uk-table-striped' style='width:98%'>
         <thead id='thead'>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Website Name</th>
                 <th>Ip Address Of User</th>
                 <th>Country</th>
