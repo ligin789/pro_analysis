@@ -145,4 +145,20 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         }
         echo $data;
     }
+    if (isset($_POST['heatMapDatas'])) {
+        $userID = $_SESSION['userID'];
+        $res = "SELECT `data_latitude`,`data_longitude` from tbl_data where `data_user_id`='$userID' and `data_status`!=0";
+        $sqlRes = mysqli_query($connect, $res);
+        $i=0;
+        $latitude=array();
+        $longitude=array();
+        while($row=mysqli_fetch_array($sqlRes))
+        {
+            $latitude[$i]=$row['data_latitude'];
+            $longitude[$i]=$row['data_longitude'];
+            $i++;
+        }
+        $data = array("lati" => $latitude, "longi" => $longitude);
+        echo json_encode($data);
+    }
 }

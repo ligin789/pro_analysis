@@ -1,9 +1,45 @@
-var map, heatmap;
+//fetch longitude and latidude of user
 
+async function getPoint() {
+  $.ajax({
+    url: "./server/analysis.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      heatMapDatas: "fetchAllDetails"
+    },
+    success: function (data, status) {
+      longitude = data.longi;
+      latitude = data.lati;
+      return [
+        longitude,
+        latitude
+      ];
+    },
+    error: function (responseData, textStatus, errorThrown) {
+      console.log(responseData, textStatus, errorThrown);
+    }
+  });
+}
+var functionFetchCordinate = this.getPoint();
+console.log(functionFetchCordinate.array1[0]);
+
+var longitude = functionFetchCordinate.array1;
+var latitude = functionFetchCordinate.array2;
+
+console.log(longitude);
+let i = 0;
+let finalArray = [];
+let arrayLength = longitude.length;
+while (i < arrayLength) {
+  finalArray.push(new google.maps.LatLng(longitude[i], latitude[i]));
+}
+console.log(longitude);
+var map, heatmap;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 13,
-    center: {lat: 37.775, lng: -122.434},
+    center: { lat: 37.775, lng: -122.434 },
     mapTypeId: google.maps.MapTypeId.SATELLITE
   });
 
@@ -550,3 +586,4 @@ function getPoints() {
     new google.maps.LatLng(37.751266, -122.403355)
   ];
 }
+

@@ -7,7 +7,6 @@ $.ajax({
         chartFetch: "chartFetch"
     },
     success: function(data, status) {
-        console.log(data[1]);
     },
     error: function (responseData, textStatus, errorThrown) {
         console.log(responseData, textStatus, errorThrown);

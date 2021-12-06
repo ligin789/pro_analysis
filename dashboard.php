@@ -31,6 +31,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 cursor: pointer;
             }
         </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
         <script src="./assets/scripts/heatmap.js"></script>
 
@@ -169,7 +170,6 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
 
 
         <!-- jQuery CDN - Full-->
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <!-- Popper.JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
         <!-- Bootstrap JS -->
