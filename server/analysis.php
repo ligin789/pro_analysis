@@ -126,7 +126,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 $resWebsite = mysqli_query($connect, $resWebsite);
                 $rowWebsite = mysqli_fetch_assoc($resWebsite);
                 $websiteName = $rowWebsite['website_name'];
-                $data .= '<tr>
+                $data .= '<tr onclick="fetchEachDataInModal('. $row['data_id'] .')" title="Click to view Details">
                             <td>' . ++$count . '</td>
                             <td>' . ucwords($websiteName) . '</td>
                             <td>' . $row['data_ip'] . '</td>
@@ -160,5 +160,16 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         }
         $data = array("lati" => $latitude, "longi" => $longitude);
         echo json_encode($data);
+    }
+    //fetch data to modal
+    if(isset($_POST['fetchDataModal']) and isset($_POST['dataID']))
+    {
+        extract($_POST);
+        $fetchDataSql="SELECT * from tbl_data where `data_id`='$dataID' and data_status!=0";
+        $fetchDataSqlRes=mysqli_query($connect,$fetchDataSql);
+        $fetchDataSqlRow=mysqli_fetch_array($fetchDataSqlRes);
+        $_SESSION['latitude']=$fetchDataSqlRow['data_latitude'];
+        $_SESSION['longitude']=$fetchDataSqlRow['data_longitude'];
+        echo json_encode($fetchDataSqlRow);
     }
 }

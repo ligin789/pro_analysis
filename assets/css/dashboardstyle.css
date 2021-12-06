@@ -339,3 +339,26 @@ a.article:hover {
 {
   width:40%;
 }
+.mapWrapper
+{
+  width:90%;
+  height:300px;
+  border-radius: 20px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 10px 1px;
+}
+.list-ul
+{
+  list-style-type:none;
+  justify-content: initial;
+  margin-top: 5px;
+  justify-self: start;
+}
+.flex-info
+{
+  justify-content: space-evenly;
+}
+.list-ul li
+{
+  margin:15px 0px;
+}

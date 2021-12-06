@@ -34,7 +34,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
             array_push($dataPoints2, $temparray);
         }
     } else {
-        header("Location: auth/logoutController.php");
+        // header("Location: auth/logoutController.php");
     }
 
 ?>
@@ -59,8 +59,63 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
         <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvtz1GjcbeOzhVK9Q09SQXcicu8pi--_o&callback=initMap"></script> -->
-
-
+        <style>
+            #map {
+                height: 300px;
+                /* The height is 400 pixels */
+                width: 100%;
+                /* The width is the width of the web page */
+            }
+        </style>
+        <script>
+            //fucntion for starting modal and looking data
+            let fetchEachDataInModal = (dataID) => {
+                $.ajax({
+                    url: "./server/analysis.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        fetchDataModal: "Fsds",
+                        dataID: dataID
+                    },
+                    success: function(data, status) {
+                        $("#isp-wrapper").html("<b>Internet Provider</b> : " + data.data_network_provider);
+                        $("#location-wrapper").html("<b>Ip address</b> : " + data.data_ip);
+                        $("#platform-wrapper").html("<b>Platform </b>: " + data.os_name);
+                        $("#date-wrapper").html("<b>Date </b> : " + data.data_created_at);
+                        $("#browser-wrapper").html("<b>Browser Details</b> : " + data.data_browser + data.data_browser_version);
+                        $("#country-wrapper").html("<b>Country</b> : " + data.data_country);
+                        $("#device-wrapper").html("<b>Device</b> : " + data.data_device_type);
+                        $("#timzone-wrapper").html("<b>TimeZone</b> : " + data.data_timezone);
+                        $('#eachDataModal').modal('show');
+                        longitude = data.data_longitude;
+                        latitude = data.data_latitude;
+                        initMap(longitude,latitude);
+                    },
+                    error: function(responseData, textStatus, errorThrown) {
+                        console.log(responseData, textStatus, errorThrown);
+                    }
+                });
+            }
+            // Initialize and add the map
+            function initMap(longitude=1.2,latitude=1.2) {
+                // The location of Uluru
+                var uluru = {
+                    lat: parseInt(latitude),
+                    lng: parseInt(longitude)
+                };
+                // The map, centered at Uluru
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 4,
+                    center: uluru,
+                });
+                // The marker, positioned at Uluru
+                const marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map,
+                });
+            }
+        </script>
     </head>
 
     <body>
@@ -109,8 +164,54 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 </div>
             </div>
         </div>
+        <!--Modal starts-->
+        <div class="modal fade bd-example-modal-lg" id="eachDataModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content mx-auto">
+                    <center>
+                        <h4>Location of user</h4>
+                        <div class="mapWrapper">
+                            <div id="map"></div>
+                        </div>
+                    </center>
+                    <div class="info-wrapper">
+                        <div class="d-flex flex-info">
+                            <ul class="list-ul">
+                                <li id="isp-wrapper">
+                                    Isp :Bsnl
+                                </li>
+                                <li id="location-wrapper">
+                                    Location :Kerala
+                                </li>
+                                <li id="platform-wrapper">
+                                    Platform :Windows
+                                </li>
+                                <li id="date-wrapper">
+                                    Date :2021-11-27
+                                </li>
+                            </ul>
+                            <ul class="list-ul">
+                                <li id="browser-wrapper">
+                                    Browser :Chrome
+                                </li>
+                                <li id="country-wrapper">
+                                    Country :India
+                                </li>
+                                <li id="device-wrapper">
+                                    Device :Phone
+                                </li>
+                                <li id="timzone-wrapper">
+                                    TimeZone :Asia/Kolkata
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal ends-->
         <script>
-           
             window.onload = function() {
 
                 var chart = new CanvasJS.Chart("chartContainer", {
@@ -156,7 +257,9 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 }
 
             }
-        </script>s
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=visualization&callback=initMap">
+        </script>
 
         <!--canvas js-->
         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
