@@ -130,7 +130,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                         <!--Each small box-->
                         <div class="dash-box d-flex" data-tilt>
                             <div class="content-text">
-                                <div class="dailyCount">1,504</div>Daily Views
+                                <div class="dailyCount">1</div>Average Views
                             </div>
                             <div class="icon-container ml-2 mt-3 text-secondary">
                                 <i class="fas fa-eye fa-3x"></i>

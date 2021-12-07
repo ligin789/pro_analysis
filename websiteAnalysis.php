@@ -27,7 +27,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
             array_push($dataPoints1, $temparray);
         }
         foreach ($array as $date) {
-            $FetchDataMonth = "SELECT DISTINCT data_id from tbl_data where `data_website_id`='$websiteID' and `data_created_at`='$date' and `data_status`!=0";
+            $FetchDataMonth = "SELECT DISTINCT data_ip from tbl_data where `data_website_id`='$websiteID' and `data_created_at`='$date' and `data_status`!=0";
             $FetchDataMonthResult = mysqli_query($connect, $FetchDataMonth);
             $count = mysqli_num_rows($FetchDataMonthResult);
             $temparray = array("label" => $date, "y" => $count);
