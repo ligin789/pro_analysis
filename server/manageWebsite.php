@@ -82,7 +82,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         $getWebsiteResult = mysqli_query($connect, $getWebsite);
         $items = "<table id='exampleTable' class='table table-striped table-bordered' style='min-width: 100%'>
         <thead id='thead'>
-            <tr style='background-color: #45519b'>
+            <tr>
                 <th>#</th>
                 <th>Website Name</th>
                 <th>Website Url</th>
@@ -105,7 +105,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 $items .= " <tr>
                 <td>" . $count . "</td>
                 <td>" . substr($row['website_name'], 0, 6) . "</td>
-                <td>" . substr($row['website_domain'], 8, 15) . "</td>
+                <td>" . substr($row['website_domain'], 0, 11) . "</td>
                 <td>" . $row['website_created_at'] . "</td>
                 <td>" . $row['website_updated_at'] . "</td>
                 <td>" . $status . "</td>

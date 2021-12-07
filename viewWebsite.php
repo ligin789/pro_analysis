@@ -105,7 +105,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Domain name</label>
                                 <input type="hidden" id="hiddenId">
-                                <input type="text" class="form-control" id="website_domain" onblur="checkWebsite(this)" placeholder="Password">
+                                <input type="text" class="form-control" id="website_domain" disabled placeholder="Password">
                                 <span id="WebsiteError" style="display: none;" class="mt-2 pl-4 text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
                                 <span id="websiteSuccess" style="display: none;" class="mt-2 pl-4 text-success"><i class="fa fa-check" aria-hidden="true"></i>
                                 </span>
@@ -190,36 +190,32 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
             }
             //update
             //Submit create cdn
-            const updateCdn = async () => {
+            const updateCdn = () => {
                 let webDomain = $('#website_domain');
                 $('#finalAlert').css('display', 'none');
                 //check website status
-                checkWebsite();
-                if (websiteStatus) {
-                    //check website name is empty or not
-                    if ($('#website_name').val() != '') {
-                        $.ajax({
-                            url: "./server/manageWebsite.php",
-                            type: "POST",
-                            data: {
-                                HiddenId: $('#hiddenId').val(),
-                                UwebsiteName: $('#website_name').val(),
-                                UwebsiteUrl: $('#website_domain').val()
-                            },
-                            success: function(data, status) {
-                                topbarLoading();
-                                $('#exampleModal').modal('hide');
-                                loadWebsite();
-                            }
-                        });
-                    } else {
-                        $('#finalAlert').html('Website name is required');
-                        $('#finalAlert').css('display', 'inline-block');
-                    }
+
+                //check website name is empty or not
+                if ($('#website_name').val() != '') {
+                    $.ajax({
+                        url: "./server/manageWebsite.php",
+                        type: "POST",
+                        data: {
+                            HiddenId: $('#hiddenId').val(),
+                            UwebsiteName: $('#website_name').val(),
+                            UwebsiteUrl: $('#website_domain').val()
+                        },
+                        success: function(data, status) {
+                            topbarLoading();
+                            $('#exampleModal').modal('hide');
+                            loadWebsite();
+                        }
+                    });
                 } else {
-                    $('#finalAlert').html('Website Url invalid');
+                    $('#finalAlert').html('Website name is required');
                     $('#finalAlert').css('display', 'inline-block');
                 }
+
             }
             $(document).ready(function() {
                 $("#sidebarCollapse").on("click", function() {

@@ -28,7 +28,7 @@
                 <i class="fas fa-briefcase"></i>
                 Daily analysis
             </a>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <!-- <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-copy"></i>
                 Pages
             </a>
@@ -42,9 +42,9 @@
                 <li>
                     <a href="#">Page 3</a>
                 </li>
-            </ul>
+            </ul> -->
         </li>
-        <li>
+        <!-- <li>
             <a href="#">
                 <i class="fas fa-image"></i>
                 Portfolio
@@ -61,6 +61,6 @@
                 <i class="fas fa-paper-plane"></i>
                 Contact
             </a>
-        </li>
+        </li> -->
     </ul>
 </nav>

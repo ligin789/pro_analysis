@@ -79,6 +79,8 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                         dataID: dataID
                     },
                     success: function(data, status) {
+                        var platFormImg="<img src='./assets/vectors/winLogo.png'";
+                        var platFormImg="<img src='./assets/vectors/android.png'";
                         $("#isp-wrapper").html("<b>Internet Provider</b> : " + data.data_network_provider);
                         $("#location-wrapper").html("<b>Ip address</b> : " + data.data_ip);
                         $("#platform-wrapper").html("<b>Platform </b>: " + data.os_name);
