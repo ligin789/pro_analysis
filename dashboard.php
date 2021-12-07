@@ -21,8 +21,8 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 height: 100%;
                 width: 100%;
             }
-            .barchart button
-            {
+
+            .barchart button {
                 background-color: #4CAF50;
                 color: white;
                 padding: 2px 5px;
@@ -31,6 +31,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 cursor: pointer;
             }
         </style>
+
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
         <script src="./assets/scripts/heatmap.js"></script>
@@ -53,7 +54,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
 
     </head>
 
-    <body>
+    <body onunload="logout()">
         <div class="wrapper">
             <!-- Sidebar  -->
             <?php include('layout/dashBoardHead.php'); ?>
@@ -150,7 +151,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                             <button onclick="changeOpacity()">Change opacity</button>
                             <div id="map"></div>
                         </div>
-                        
+
 
                     </div>
                 </div>
@@ -205,6 +206,12 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         <script src="./ajaxRequest.js"></script>
         <script src="./assets/scripts/chart.js"></script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=visualization&callback=initMap">
+        </script>
+        <script type="text/javascript">
+            function logout() {
+               console.log("logout");
+            }
+           
         </script>
     </body>
 

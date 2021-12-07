@@ -29,25 +29,20 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
     if (isset($_POST['chartFetch'])) {
         $userID = $_SESSION['userID'];
         $date = date("Y-m-d");
-        $fetcharray = "SELECT data_Contient_name from tbl_data where data_user_id='$userID' and data_status!=0";
+        $fetcharray = "SELECT DISTINCT data_Contient_name from tbl_data where data_user_id='$userID' and data_status!=0";
         $sqlRes = mysqli_query($connect, $fetcharray);
-        $fetcharrayRow = mysqli_fetch_array($sqlRes);
-        $itemArray = array();
-        // for($i=0;$i<mysqli_num_rows($sqlRes);$i++){
-        //     $item=$fetcharrayRow[$i];
-        //     $count=0;
-        //     for($j=0;$j<mysqli_num_rows($sqlRes);$j++)
-        //     {
-        //         if($j!=$i)
-        //         {
-        //             if($item==$fetcharrayRow[$j]){
-        //                 $count++;
-        //             }
-        //         }
-        //     }
-        //     $itemArray=array_push($item);
-        // }
-        echo json_encode($fetcharrayRow['data_Contient_name']);
+        $fetcharrayRowCount = mysqli_num_rows($sqlRes);
+        $data = array();
+        while($fetcharrayRow = mysqli_fetch_array($sqlRes))
+        {
+            $value=$fetcharrayRow['data_Contient_name'];
+            $fetchIndContinent="SELECT * from tbl_data where data_user_id='$userID' and data_status!=0 and data_Contient_name='$value'";
+            $fetchIndContinentRes=mysqli_query($connect,$fetchIndContinent);
+            $CountConti=mysqli_num_rows($fetchIndContinentRes);
+            $tempArray= array($value => $CountConti);
+            array_push($data,$tempArray);
+        }
+        echo json_encode($fetcharrayRow);
     }
     //fetch all details
     if (isset($_POST['fetchAllDetails'])) {
@@ -126,7 +121,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 $resWebsite = mysqli_query($connect, $resWebsite);
                 $rowWebsite = mysqli_fetch_assoc($resWebsite);
                 $websiteName = $rowWebsite['website_name'];
-                $data .= '<tr onclick="fetchEachDataInModal('. $row['data_id'] .')" title="Click to view Details">
+                $data .= '<tr onclick="fetchEachDataInModal(' . $row['data_id'] . ')" title="Click to view Details">
                             <td>' . ++$count . '</td>
                             <td>' . ucwords($websiteName) . '</td>
                             <td>' . $row['data_ip'] . '</td>
@@ -149,27 +144,25 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         $userID = $_SESSION['userID'];
         $res = "SELECT `data_latitude`,`data_longitude` from tbl_data where `data_user_id`='$userID' and `data_status`!=0";
         $sqlRes = mysqli_query($connect, $res);
-        $i=0;
-        $latitude=array();
-        $longitude=array();
-        while($row=mysqli_fetch_array($sqlRes))
-        {
-            $latitude[$i]=$row['data_latitude'];
-            $longitude[$i]=$row['data_longitude'];
+        $i = 0;
+        $latitude = array();
+        $longitude = array();
+        while ($row = mysqli_fetch_array($sqlRes)) {
+            $latitude[$i] = $row['data_latitude'];
+            $longitude[$i] = $row['data_longitude'];
             $i++;
         }
         $data = array("lati" => $latitude, "longi" => $longitude);
         echo json_encode($data);
     }
     //fetch data to modal
-    if(isset($_POST['fetchDataModal']) and isset($_POST['dataID']))
-    {
+    if (isset($_POST['fetchDataModal']) and isset($_POST['dataID'])) {
         extract($_POST);
-        $fetchDataSql="SELECT * from tbl_data where `data_id`='$dataID' and data_status!=0";
-        $fetchDataSqlRes=mysqli_query($connect,$fetchDataSql);
-        $fetchDataSqlRow=mysqli_fetch_array($fetchDataSqlRes);
-        $_SESSION['latitude']=$fetchDataSqlRow['data_latitude'];
-        $_SESSION['longitude']=$fetchDataSqlRow['data_longitude'];
+        $fetchDataSql = "SELECT * from tbl_data where `data_id`='$dataID' and data_status!=0";
+        $fetchDataSqlRes = mysqli_query($connect, $fetchDataSql);
+        $fetchDataSqlRow = mysqli_fetch_array($fetchDataSqlRes);
+        $_SESSION['latitude'] = $fetchDataSqlRow['data_latitude'];
+        $_SESSION['longitude'] = $fetchDataSqlRow['data_longitude'];
         echo json_encode($fetchDataSqlRow);
     }
 }

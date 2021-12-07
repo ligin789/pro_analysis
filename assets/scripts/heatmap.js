@@ -49,7 +49,6 @@ function initMap() {
     mapTypeId: google.maps.MapTypeId.SATELLITE
   });
   getPoints(function(data){
-    console.log(data);
     heatmap = new google.maps.visualization.HeatmapLayer({
       data:  data,
       map: map
