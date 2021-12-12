@@ -1,5 +1,6 @@
 let userId = UserId;
 if (userId && WebsiteId) {
+  var ajfnajnafnjaf=0;
   let current_domain = window.location.hostname;
   $.getScript("https://unpkg.com/bowser@2.7.0/es5.js", function () {
     var result = bowser.getParser(window.navigator.userAgent);
@@ -60,9 +61,11 @@ if (userId && WebsiteId) {
           region: data.region,
           latitude: data.latitude,
           longitude: data.longitude,
+          dummy: "dummy"
         },
         success: function (data, status) {
           console.log("success");
+          ajfnajnafnjaf=data.last_id;
         },
         error: function (responseData, textStatus, errorThrown) {
           console.log(responseData, textStatus, errorThrown);
@@ -123,7 +126,7 @@ if (userId && WebsiteId) {
           // },
           dataType: "json",
           data: {
-            ValidateData: "logout",
+            ValidateData: ajfnajnafnjaf,
             websiteid: WebsiteId,
             userid: UserId,
             browser_name: result.parsedResult.browser.name,
@@ -141,7 +144,7 @@ if (userId && WebsiteId) {
             longitude: data.longitude,
           },
           success: function (data, status) {
-            console.log("success");
+            console.log(data.last_id);
           },
           error: function (responseData, textStatus, errorThrown) {
             console.log(responseData, textStatus, errorThrown);

@@ -1,9 +1,50 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding");
-if (isset($_POST['websiteid']) and isset($_POST['userid']) and isset($_POST['browser_name']) and isset($_POST['browser_version'])) {
+//cross checking with last inserted data
+if (isset($_POST['ValidateData'])) {
     extract($_POST);
-    session_start();
+    include "../cred/dbConnect.php";
+    //fetch the last inserted data
+    $lastInsertedData = mysqli_query($connect, "SELECT * FROM `tbl_data` WHERE data_id='$ValidateData'");
+    $lastInsertedDataArray = mysqli_fetch_assoc($lastInsertedData);
+    //success of function
+    if ($lastInsertedDataArray['data_Contient_name'] == $continment) {
+        if ($lastInsertedDataArrayp['os_name'] == $osName) {
+            if ($lastInsertedDataArray['data_browser'] == $browser_name) {
+                if ($lastInsertedDataArray['data_browser_version'] == $browser_version) {
+                    if ($lastInsertedDataArray['data_device_type'] == $devicetype) {
+                        $data = array("last_id" => "Sucessssssss");
+                    } else {
+                        //update data to deactivate status
+                        $data = array("last_id" => "error");
+                        $resError = mysqli_query($connect, "UPDATE `tbl_data` SET `data_status`=0 WHERE data_id='$ValidateData'");
+                    }
+                } else {
+                    //update data to deactivate status
+                    $data = array("last_id" => "error");
+                    $resError = mysqli_query($connect, "UPDATE `tbl_data` SET `data_status`=0 WHERE data_id='$ValidateData'");
+                }
+            } else {
+                //update data to deactivate status
+                $data = array("last_id" => "error");
+                $resError = mysqli_query($connect, "UPDATE `tbl_data` SET `data_status`=0 WHERE data_id='$ValidateData'");
+            }
+        } else {
+            //update data to deactivate status
+            $resError = mysqli_query($connect, "UPDATE `tbl_data` SET `data_status`=0 WHERE data_id='$ValidateData'");
+            $data = array("last_id" => "error");
+        }
+    } else {
+        //update data to deactivate status
+        $resError = mysqli_query($connect, "UPDATE `tbl_data` SET `data_status`=0 WHERE data_id='$ValidateData'");
+        $data = array("last_id" => "error");
+    }
+    //error means deactivated
+    echo json_encode($data);
+}
+if (isset($_POST['dummy'])) {
+    extract($_POST);
     include "../cred/dbConnect.php";
     $error = '';
     //unencrypt the website id and userid
@@ -47,7 +88,6 @@ if (isset($_POST['websiteid']) and isset($_POST['userid']) and isset($_POST['bro
                 $insertResult = mysqli_query($connect, $insertIntoDB);
                 //fetch id of the last inserted data
                 $last_id = mysqli_insert_id($connect);
-                $_SESSION['last_id'] = $last_id;
             } else {
                 $error = "ip address is invalid";
             }
@@ -56,12 +96,5 @@ if (isset($_POST['websiteid']) and isset($_POST['userid']) and isset($_POST['bro
         }
     }
     $data = array("websiteid" => $error, "userid" => $userIdOrginal, "last_id" => $last_id);
-    echo json_encode($data);
-}
-//cross checking with last inserted data
-if (isset($_POST['ValidateData']) and isset($_POST['websiteid']) and isset($_POST['userid']) and isset($_POST['browser_name']) and isset($_POST['browser_version'])) {
-    extract($_POST);
-    session_start();
-    $data = array("last_id" => $_SESSION['last_id']);
     echo json_encode($data);
 }

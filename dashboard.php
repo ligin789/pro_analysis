@@ -5,7 +5,10 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
     header("Location: auth/");
     die();
 } else {
-
+    $fetchAverageCount="SELECT * from tbl_data where data_created_at > current_date - interval 7 day";
+    $fetchAverageCountRes=mysqli_query($connect,$fetchAverageCount);
+    $fetchAverageCountResC=mysqli_num_rows($fetchAverageCountRes);
+    $average=$fetchAverageCountResC/7;
 ?>
     <!DOCTYPE html>
     <html>
@@ -53,7 +56,6 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
 
 
     </head>
-
     <body onunload="logout()">
         <div class="wrapper">
             <!-- Sidebar  -->
@@ -74,7 +76,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="nav navbar-nav ml-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#">Profile <i class="fas fa-user-circle"></i></a>
+                                    <a class="nav-link" href="#"><?php echo ucwords($_SESSION['userName']); ?> <i class="fas fa-user-circle"></i></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="./auth/logoutController.php">Logout <i class="fas fa-sign-out-alt"></i></a>
@@ -131,7 +133,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                         <!--Each small box-->
                         <div class="dash-box d-flex" data-tilt>
                             <div class="content-text">
-                                <div class="dailyCount">1</div>Average Views
+                                <div class="dailyCount"><?php echo round($average) ?></div>Average Views
                             </div>
                             <div class="icon-container ml-2 mt-3 text-secondary">
                                 <i class="fas fa-eye fa-3x"></i>

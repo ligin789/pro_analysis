@@ -9,7 +9,7 @@
     </a>
 
     <ul class="list-unstyled components">
-        <li class="active">
+        <!-- <li class="active">
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-home"></i>
                 Manage Website
@@ -22,11 +22,39 @@
                     <a href="./viewWebsite.php">View Website</a>
                 </li>
             </ul>
-        </li>
+        </li> -->
         <li>
             <a href="./dailyAnalysis.php">
                 <i class="fas fa-briefcase"></i>
                 Daily analysis
+            </a>
+            <a href="./addnewwebsite.php">
+                <i class="fas fa-briefcase"></i>
+                Add New Website
+            </a>
+            <a href="./viewWebsite.php">
+                <i class="fas fa-briefcase"></i>
+                View Website
+            </a>
+            <a href="./regionAnalysis.php">
+                <i class="fas fa-map-marker-alt"></i>
+                Region Based Analysis
+            </a>
+            <a href="./viewWebsite.php">
+            <i class="fas fa-download"></i>
+                Export Data
+            </a>
+            <a href="./viewWebsite.php">
+                <i class="fas fa-briefcase"></i>
+                Pro Analytics Adv-world
+            </a>
+            <a href="./viewWebsite.php">
+            <i class="fas fa-asterisk"></i>
+                Refer A friend
+            </a>
+            <a href="./viewWebsite.php">
+            <i class="fas fa-wallet"></i>
+                Pro Wallet
             </a>
             <!-- <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-copy"></i>

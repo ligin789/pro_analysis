@@ -76,7 +76,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 $data .= '<tr>
                             <td>' . ++$count . '</td>
                             <td>' . ucwords($websiteName) . '</td>
-                            <td>' . $row['data_ip'] . '</td>
+                            <td>' . substr($row['data_ip'],0,17) . '</td>
                             <td>' . $row['data_country'] . '</td>
                             <td>' . $row['data_region'] . '</td>
                             <td>' . $row['data_device_type'] . '</td>
@@ -124,7 +124,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 $data .= '<tr onclick="fetchEachDataInModal(' . $row['data_id'] . ')" title="Click to view Details">
                             <td>' . ++$count . '</td>
                             <td>' . ucwords($websiteName) . '</td>
-                            <td>' . $row['data_ip'] . '</td>
+                            <td>' .substr($row['data_ip'],0,17). '</td>
                             <td>' . $row['data_country'] . '</td>
                             <td>' . $row['data_region'] . '</td>
                             <td>' . $row['data_device_type'] . '</td>
