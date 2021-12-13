@@ -40,7 +40,7 @@
                 <i class="fas fa-map-marker-alt"></i>
                 Region Based Analysis
             </a>
-            <a href="./viewWebsite.php">
+            <a href="./export.php">
             <i class="fas fa-download"></i>
                 Export Data
             </a>

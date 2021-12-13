@@ -26,10 +26,16 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
             </tr>
         </thead>
         <tbody>";
+        $count=0;
         while ($row = mysqli_fetch_array($selectDataResult)) {
+            $data_website_id=$row['data_website_id'];
+            $fetchWebsiteSql="SELECT website_name from tbl_website where website_id='$data_website_id'";
+            $fetchWebsiteResult=mysqli_query($connect,$fetchWebsiteSql);
+            $fetchWebsiteRow=mysqli_fetch_array($fetchWebsiteResult);
+            $website_name=$fetchWebsiteRow['website_name'];
             $data .= '<tr>
             <td>' . ++$count . '</td>
-            <td>' . ucwords($websiteName) . '</td>
+            <td>' . ucwords($website_name) . '</td>
             <td>' . substr($row['data_ip'], 0, 17) . '</td>
             <td>' . $row['data_country'] . '</td>
             <td>' . $row['data_region'] . '</td>
