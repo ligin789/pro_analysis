@@ -69,7 +69,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                         <div class="col">
                             <div class="collapse multi-collapse" id="multiCollapseExample1">
                                 <div class="card card-body">
-                                    <form action="./generateExcel.php" method="post">
+                                    <form action="./server/generateExcel.php" method="post">
                                         <select name="conti" id="conti" class="form-control mb-2" required="required">
                                             <option value="">Select</option>
                                             <option value="Asia">Asia</option>
@@ -99,7 +99,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                         <div class="col">
                             <div class="collapse multi-collapse" id="multiCollapseExample2">
                                 <div class="card card-body">
-                                    <form action="./generateExcel.php" method="post">
+                                    <form action="./server/generateExcel.php" method="post">
                                         <div class="d-flex">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -117,7 +117,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                                         <div class="d-flex">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <button class="btn btn-success" name="excelSubmitdate">As Excel <i class="fas fa-file-excel"></i></button>
+                                                    <button class="btn btn-success" type="submit" name="excelSubmitdate">As Excel <i class="fas fa-file-excel"></i></button>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
