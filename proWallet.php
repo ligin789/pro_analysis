@@ -5,7 +5,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
     header("Location: auth/");
     die();
 } else {
-
+    $userId = $_SESSION['userID'];
 ?>
     <!DOCTYPE html>
     <html>
@@ -60,19 +60,25 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 </nav>
 
                 <h2>Welcome to pro wallet</h2>
-                <select name="conti" id="conti" class="region_selectBox col-4" onchange="regionSelect(this)">
-                    <option value="0">Select</option>
-                    <option value="Asia">Asia</option>
-                    <option value="Africa">Africa</option>
-                    <option value="North America">North America</option>
-                    <option value="South America">South America</option>
-                    <option value="Europe">Europe</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Antarctica">Antarctica</option>
-                </select>
                 <div id="regionTableContainer" class="regionTableContainer">
                     <center>
-                        <div id="anim" class="image-one">
+                        <div id="anim3" class="image-one">
+
+                        </div>
+                        <div id="walletBalance" style="display: none;">
+                            <?php
+                            $fetchBalanceOfWallet = "SELECT user_wallet_balance from tbl_user where user_id='$userId' and user_status!=0";
+                            $fetchBalanceOfWalletRes = mysqli_query($connect, $fetchBalanceOfWallet);
+                            $fetchBalanceOfWalletRow = mysqli_fetch_array($fetchBalanceOfWalletRes);
+                            echo "<div class='dash-box d-flex col-3' data-tilt>
+                                    <div class='content-text'>
+                                        <div class='dailyCount'>".$fetchBalanceOfWalletRow['user_wallet_balance']."</div>Wallet Balance
+                                    </div>
+                                    <div class='icon-container ml-2 mt-3 text-secondary'>
+                                        <i class='fas fa-briefcase fa-3x'></i>
+                                    </div>
+                                </div>";
+                            ?>
                         </div>
                     </center>
                 </div>
@@ -98,29 +104,18 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
         <script>
-            //Region Select
-            const regionSelect = (contient) => {
-                $.ajax({
-                    url: "./server/regionAnalysisServer.php",
-                    type: "POST",
-                    data: {
-                        regionSelect: contient.value,
-                    },
-                    success: function(data, status) {
-                        $("#regionTableContainer").html(data);
-                        console.log(data);
-                    },
-                    error: function(responseData, textStatus, errorThrown) {
-                        console.log(responseData, textStatus, errorThrown);
-                    }
-                });
-            }
+            setTimeout(function() {
+                document.getElementById("anim3").style.transform = "scale(.8) translate(0,-50px)";
+                document.getElementById("anim3").style.transition = "1s ease-in-out";
+            }, 2000);
+            setTimeout(function() {
+                document.getElementById("walletBalance").style.display = "block";
+            }, 3000);
+
 
             //topbar notification
         </script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"></script>
+
     </body>
 
     </html>

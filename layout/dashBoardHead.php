@@ -48,11 +48,11 @@
                 <i class="fas fa-briefcase"></i>
                 Pro Analytics Adv-world
             </a>
-            <a href="./viewWebsite.php">
+            <a href="./referal.php">
             <i class="fas fa-asterisk"></i>
                 Refer A friend
             </a>
-            <a href="./viewWebsite.php">
+            <a href="./proWallet.php">
             <i class="fas fa-wallet"></i>
                 Pro Wallet
             </a>

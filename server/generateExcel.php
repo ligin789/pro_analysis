@@ -5,10 +5,11 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
     header("Location: ../auth/");
     die();
 } else {
+    $userId=$_SESSION['userID'];
     //region based prediction
     if (isset($_POST['excelSubmitRegion'])) {
         extract($_POST);
-        $fetchDetailSql = "SELECT * from tbl_data where data_Contient_name='$conti' and data_status!=0";
+        $fetchDetailSql = "SELECT * from tbl_data where data_Contient_name='$conti' and data_status!=0 and data_user_id='$userId'";
         $fetchDetailResult = mysqli_query($connect, $fetchDetailSql);
         //check count >0
         if (mysqli_num_rows($fetchDetailResult) > 0) {
@@ -42,7 +43,6 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
     //date based prediction
     if (isset($_POST['excelSubmitdate'])) {
         extract($_POST);
-        $userId=$_SESSION['userID'];
         echo $fetchDetailSql = "SELECT * from tbl_data where (data_created_at BETWEEN '$fromDate' and '$toDate') and data_status!=0 and data_user_id='$userId'";
         $fetchDetailResult = mysqli_query($connect, $fetchDetailSql);
         //check count >0

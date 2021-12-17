@@ -27,3 +27,10 @@ var animation1 = bodymovin.loadAnimation({
 	autoplay: true,
 	path: './assets/vectors/referallottie.json'
 })
+var animation2 = bodymovin.loadAnimation({
+	container: document.getElementById('anim3'),
+	renderer: 'svg',
+	loop: true,
+	autoplay: true,
+	path: './assets/vectors/walletLottie.json'
+})
