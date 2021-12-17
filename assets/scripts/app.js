@@ -20,3 +20,10 @@ var animation = bodymovin.loadAnimation({
 	autoplay: true,
 	path: './assets/vectors/paperplane.json'
 })
+var animation1 = bodymovin.loadAnimation({
+	container: document.getElementById('referal'),
+	renderer: 'svg',
+	loop: true,
+	autoplay: true,
+	path: './assets/vectors/referallottie.json'
+})
