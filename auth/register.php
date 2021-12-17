@@ -17,6 +17,9 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/vectors/Logo.svg">
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
@@ -104,6 +107,9 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
               <input type="password" class="form-control custom-control1" onblur="validate_password()" id="pass" aria-describedby="emailHelp" placeholder="Enter Password" name="password" required />
               <input type="password" class="form-control custom-control1" id="cpass" onblur="validate_confirm()" aria-describedby="emailHelp" placeholder="Enter Password Again" name="cpassword" required />
             </div>
+            <div class="form-group d-flex" id="referalId">
+              <a class="ml-3" onclick="checkReferal()">Apply Referal code</a>
+            </div>
             <div class="form-group form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1" name="checkBox" required />
               <label class="form-check-label" for="exampleCheck1">Agree Terms and conditions</label>
@@ -114,6 +120,32 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
           </form>
         </div>
       </div>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Referal</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <center> <label class="form-check-label mx-auto">Enter the referal code of your friend</label></center>
+                <input type="text" class="form-control custom-control1" onblur="referalCheck(this)" required />
+                <span id="WebsiteError" style="display: none;" class="mt-2 ml-2 pl-4 text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+                <span id="websiteSuccess" style="display: none;" class="mt-2 ml-2 pl-4 text-success"><i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal End -->
       <div class="ladyimg position-relative">
         <img src="../assets/vectors/registergirl.png" alt="ladyimg" srcset="" />
       </div>
@@ -126,6 +158,35 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
     <script src="../assets/scripts/app.js"></script>
     <!--Validation for first name and lastname-->
     <script>
+      const checkReferal = () => {
+        $('#exampleModal').modal('show');
+      }
+      const referalCheck = (e) => {
+        let referal = e.value;
+        $('#WebsiteError').css('display', 'none');
+        $('#websiteSuccess').css('display', 'none');
+        if (referal != "") {
+          $.ajax({
+            url: "./authentication.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+              referalId: referal
+            },
+            success: function(data, status) {
+              if (data.dataStatus == "true") {
+                referal=data.referaluserId;
+                $('#websiteSuccess').css('display', 'inline-block');
+                $('#referalId').html(`<a class="ml-3 text-success">Referal Applied</a> <input type="hidden" name="referalId" value="${referal}">`);
+
+              } else {
+                $('#WebsiteError').css('display', 'inline-block');
+              }
+            }
+          });
+        }
+      }
+
       function validate_name() {
         var name = document.forms["registerForm"]["firstname"];
         var pattern = /^[A-Za-z]+$/;
@@ -212,7 +273,7 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
         }
       }
       //validation for password & confirm password
-   
+
       function validate_password() {
         var name = document.forms["registerForm"]["password"];
         var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;

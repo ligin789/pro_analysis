@@ -40,12 +40,19 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
 
                             return $randomString;
                         }
-                        $RandomString=getName($n);
+                        $RandomString = getName($n);
                         $name = strtolower($firstname) . " " . strtolower($lastname);
                         $password = md5($password);
                         $date = date("Y-m-d");
-                        //Insert into database
-                        $insertDb = "INSERT INTO `tbl_user`(`user_email`, `user_name`, `user_mobile`, `user_password`, `user_created_at`,`user_referal_id`) VALUES ('$email','$name','$mobile','$password','$date','$RandomString')";
+                        //Insert into database by checking condition
+                        if (isset($referalId)) {
+                            //update the wallet balance of referer and referei
+                            echo $updateWalletBalance = "UPDATE `tbl_user` SET `user_wallet_balance`=user_wallet_balance+100 where user_id='$referalId'";
+                            $updateWalletBalanceRes = mysqli_query($connect, $updateWalletBalance);
+                            $insertDb = "INSERT INTO `tbl_user`(`user_email`, `user_name`, `user_mobile`, `user_password`, `user_created_at`,`user_referal_id`,`user_refered_status`,`user_wallet_balance`) VALUES ('$email','$name','$mobile','$password','$date','$RandomString','$referalId',50)";
+                        } else {
+                            $insertDb = "INSERT INTO `tbl_user`(`user_email`, `user_name`, `user_mobile`, `user_password`, `user_created_at`,`user_referal_id`) VALUES ('$email','$name','$mobile','$password','$date','$RandomString')";
+                        }
                         $insertDbResult = mysqli_query($connect, $insertDb);
                         if ($insertDbResult) {
                             $_SESSION['loginMessage'] = "Register Success";
@@ -106,5 +113,21 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
             header("Location: index.php");
             die();
         }
+    }
+    //check id valid
+    if (isset($_POST['referalId'])) {
+        extract($_POST);
+        $checkReferalId = "SELECT * FROM `tbl_user` WHERE `user_referal_id`='$referalId' and user_status!=0";
+        $checkReferalIdResult = mysqli_query($connect, $checkReferalId);
+        $checkReferalIdCount = mysqli_num_rows($checkReferalIdResult);
+        if ($checkReferalIdCount == 1) {
+            $row = mysqli_fetch_array($checkReferalIdResult);
+            $dataStatus = "true";
+            $referaluserId = $row['user_id'];
+        } else {
+            $dataStatus = "false";
+            $referaluserId = "";
+        }
+        echo json_encode(array("dataStatus" => $dataStatus, "referaluserId" => $referaluserId));
     }
 }
