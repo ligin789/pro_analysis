@@ -1,24 +1,178 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Heatmaps</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script src="./assets/scripts/heatmap.js"></script>
-  </head>
-  <body>
-    <div id="floating-panel">
-      <button id="toggle-heatmap">Toggle Heatmap</button>
-      <button id="change-gradient">Change gradient</button>
-      <button id="change-radius">Change radius</button>
-      <button id="change-opacity">Change opacity</button>
-    </div>
-    <div id="map"></div>
+let userId = UserId;
+if (userId && WebsiteId) {
+  //webpage insert
+  const name = localStorage.getItem('name');
+  if (name) {
+    alert("Session set");
+  }
+  else {
+    //session set
+    var object = {value: "value", timestamp: new Date().getTime()}
+    localStorage.setItem("name", JSON.stringify(object));
+    var ajfnajnafnjaf = 0;
+    let current_domain = window.location.hostname;
+    $.getScript("https://unpkg.com/bowser@2.7.0/es5.js", function () {
+      var result = bowser.getParser(window.navigator.userAgent);
+      $.getJSON("https://json.geoiplookup.io/?callback=?", function (data) {
+        //  //find average time spent on a website
+        //  var secondsSpentElement = document.getElementById("seconds-spent");
+        //       var millisecondsSpentElement = document.getElementById("milliseconds-spent");
+        //     (function () {
+        //       "use strict";
+        //       requestAnimationFrame(function updateTimeSpent() {
+        //         var timeNow = performance.now();
+        //         secondsSpentElement.value = round(timeNow / 1000);
+        //         millisecondsSpentElement.value = round(timeNow);
+        //         requestAnimationFrame(updateTimeSpent);
+        //       });
+        //       var performance = window.performance, round = Math.round;
+        //     })();
+        //     console.log(secondsSpentElement);
+        //     console.log(millisecondsSpentElement);
+        //find width of device and look for user device type
+        let deviceWidth = document.documentElement.clientWidth;
+        let devicetype;
+        //fetch page name from url
+        var path = window.location.pathname;
+        var page = path.split("/").pop();
+        console.log(page);
+        if (deviceWidth <= 500) {
+          devicetype = "mobile ";
+        }
+        else if (deviceWidth > 500 && deviceWidth <= 1000) {
+          devicetype = "tablet";
+        }
+        else {
+          devicetype = "Personal Computer";
+        }
+        $.ajax({
+          url: "https://proanalysis.000webhostapp.com/server/serverMain.php",
+          type: "POST",
+          crossDomain: true,
+          cors: true,
+          // secure: true,
+          //             headers: {
+          //                 'Access-Control-Allow-Origin': '*',
+          //             },
+          //   beforeSend: function (xhr) {
+          //       xhr.setRequestHeader ("Authorization", "Basic " + btoa(""));
+          // },
+          dataType: "json",
+          data: {
+            page:page,
+            websiteid: WebsiteId,
+            userid: UserId,
+            browser_name: result.parsedResult.browser.name,
+            browser_version: result.parsedResult.browser.version,
+            osName: result.parsedResult.os.name,
+            ipAddress: data.ip,
+            country_name: data.country_name,
+            continment: data.continent_name,
+            timeZone: data.timezone_name,
+            network_provider: data.asn_org,
+            currentdomain: current_domain,
+            devicetype: devicetype,
+            region: data.region,
+            latitude: data.latitude,
+            longitude: data.longitude,
+            dummy: "dummy"
+          },
+          success: function (data, status) {
+            console.log("success");
+            ajfnajnafnjaf = data.last_id;
+            localStorage.name = "hesff";
+          },
+          error: function (responseData, textStatus, errorThrown) {
+            console.log(responseData, textStatus, errorThrown);
+          }
 
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-eXOq7RVQs2KO9Z8Sjd08Wl5uvCNXM1w&callback=initMap&libraries=visualization&v=weekly"
-      async
-    ></script>
-  </body>
-</html>
+        });
+
+      });
+    });
+    //on close event
+    window.addEventListener('beforeunload', function (e) {
+      e.preventDefault();
+      e.returnValue = '';
+      logout();
+    });
+    let logout = function () {
+      $.getScript("https://unpkg.com/bowser@2.7.0/es5.js", function () {
+        var result = bowser.getParser(window.navigator.userAgent);
+        $.getJSON("https://json.geoiplookup.io/?callback=?", function (data) {
+          //  //find average time spent on a website
+          //  var secondsSpentElement = document.getElementById("seconds-spent");
+          //       var millisecondsSpentElement = document.getElementById("milliseconds-spent");
+          //     (function () {
+          //       "use strict";
+          //       requestAnimationFrame(function updateTimeSpent() {
+          //         var timeNow = performance.now();
+          //         secondsSpentElement.value = round(timeNow / 1000);
+          //         millisecondsSpentElement.value = round(timeNow);
+          //         requestAnimationFrame(updateTimeSpent);
+          //       });
+          //       var performance = window.performance, round = Math.round;
+          //     })();
+          //     console.log(secondsSpentElement);
+          //     console.log(millisecondsSpentElement);
+          //find width of device and look for user device type
+          let deviceWidth = document.documentElement.clientWidth;
+          let devicetype;
+          if (deviceWidth <= 500) {
+            devicetype = "mobile ";
+          }
+          else if (deviceWidth > 500 && deviceWidth <= 1000) {
+            devicetype = "tablet";
+          }
+          else {
+            devicetype = "Personal Computer";
+          }
+          $.ajax({
+            url: "https://proanalysis.000webhostapp.com/server/serverMain.php",
+            type: "POST",
+            crossDomain: true,
+            cors: true,
+            // secure: true,
+            //             headers: {
+            //                 'Access-Control-Allow-Origin': '*',
+            //             },
+            //   beforeSend: function (xhr) {
+            //       xhr.setRequestHeader ("Authorization", "Basic " + btoa(""));
+            // },
+            dataType: "json",
+            data: {
+              ValidateData: ajfnajnafnjaf,
+              websiteid: WebsiteId,
+              userid: UserId,
+              browser_name: result.parsedResult.browser.name,
+              browser_version: result.parsedResult.browser.version,
+              osName: result.parsedResult.os.name,
+              ipAddress: data.ip,
+              country_name: data.country_name,
+              continment: data.continent_name,
+              timeZone: data.timezone_name,
+              network_provider: data.asn_org,
+              currentdomain: current_domain,
+              devicetype: devicetype,
+              region: data.region,
+              latitude: data.latitude,
+              longitude: data.longitude,
+            },
+            success: function (data, status) {
+              console.log(data.last_id);
+            },
+            error: function (responseData, textStatus, errorThrown) {
+              console.log(responseData, textStatus, errorThrown);
+            }
+
+          });
+
+        });
+      });
+    }
+    //on close event ends
+  }
+
+
+}
+

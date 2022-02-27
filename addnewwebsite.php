@@ -5,6 +5,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
     header("Location: auth/");
     die();
 } else {
+    $userId=$_SESSION['userID'];
 
 ?>
     <!DOCTYPE html>
@@ -72,6 +73,35 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     }
                     ?>
                 </div>
+                <?php
+                $websiteCountSql="SELECT website_id from tbl_website where user_id='$userId'";
+                $websiteCountResult=mysqli_query($connect,$websiteCountSql);
+                if(mysqli_num_rows($websiteCountResult)>2)
+                {
+                   ?>
+                   <div id="dashboardContainer">
+                    <div class="form-group col-5">
+                        <h2 class="my-3">Free Limit Over</h2>
+                        <input type="text" class="form-control" id="websiteName" aria-describedby="emailHelp" placeholder="Enter your Website name" />
+                    </div>
+                    <div class="form-group my-4 col-5 d-flex">
+                        <input type="text" class="form-control" id="websiteUrl" placeholder="Enter Website Url" onblur="checkWebsite(this)" />
+                        <span id="WebsiteError" style="display: none;" class="mt-2 pl-4 text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+                        <span id="websiteSuccess" style="display: none;" class="mt-2 pl-4 text-success"><i class="fa fa-check" aria-hidden="true"></i>
+                        </span>
+                        <span id="websiteLoading" style="display: none;" class="mt-2 pl-4 text-warning">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                        </span>
+                    </div>
+
+                    <button type="button" onclick="createCdn()" class="btn btn-primary ml-3">Create CDN</button>
+                    <span id="finalAlert" class="ml-2 text-danger" style="display: none;">Hello</span>
+                </div>
+                   <?php
+                }
+                else
+                {
+                    ?>
                 <div id="dashboardContainer">
                     <div class="form-group col-5">
                         <h2 class="my-3">Add New Website</h2>
@@ -90,6 +120,9 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     <button type="button" onclick="createCdn()" class="btn btn-primary ml-3">Create CDN</button>
                     <span id="finalAlert" class="ml-2 text-danger" style="display: none;">Hello</span>
                 </div>
+                <?php
+                }
+                ?>
                 <!--Clipboard content start-->
                 <div id="clipboardContainer" style="display: none;">
                     <div class="text-info">*****Copy the code and place in your website*****</div>

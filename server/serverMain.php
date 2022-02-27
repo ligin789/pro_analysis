@@ -83,11 +83,16 @@ if (isset($_POST['dummy'])) {
             //check whether ip address is valid or not
             if (filter_var($ipAddress, FILTER_VALIDATE_IP)) {
                 $date = date("Y-m-d");
-                $insertIntoDB = "INSERT INTO `tbl_data`(`data_user_id`, `data_website_id`, `data_Contient_name`, `data_ip`, `os_name`, `data_browser`, `data_device_type`, `data_country`, `data_browser_version`, `data_timezone`, `data_created_at`, `data_network_provider`,`data_region`,`data_latitude`,`data_longitude`) VALUES 
-                ('$userIdOrginal','$websiteidOrginal','$continment','$ipAddress','$osName','$browser_name','$devicetype','$country_name','$browser_version','$timeZone','$date','$network_provider','$region','$latitude','$longitude')";
+                $insertIntoDB = "INSERT INTO `tbl_data`(`data_user_id`, `data_website_id`, `data_Contient_name`, `data_ip`, 
+                `os_name`, `data_browser`, `data_device_type`, `data_country`, `data_browser_version`, `data_timezone`, 
+                `data_created_at`, `data_network_provider`,`data_region`,`data_latitude`,`data_longitude`) VALUES 
+                ('$userIdOrginal','$websiteidOrginal','$continment','$ipAddress','$osName','$browser_name','$devicetype',
+                '$country_name','$browser_version','$timeZone','$date','$network_provider','$region','$latitude','$longitude')";
                 $insertResult = mysqli_query($connect, $insertIntoDB);
                 //fetch id of the last inserted data
                 $last_id = mysqli_insert_id($connect);
+                $insertWebPage="INSERT INTO `tbl_pages`(`website_id`, `page_name`, `page_created_at`) VALUES ('$last_id','$page','$date')";
+                $insertWebPageResult=mysqli_query($connect,$insertWebPage);
             } else {
                 $error = "ip address is invalid";
             }
