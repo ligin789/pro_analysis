@@ -91,8 +91,8 @@ if (isset($_POST['dummy'])) {
                 $insertResult = mysqli_query($connect, $insertIntoDB);
                 //fetch id of the last inserted data
                 $last_id = mysqli_insert_id($connect);
-                $insertWebPage="INSERT INTO `tbl_pages`(`website_id`, `page_name`, `page_created_at`) VALUES ('$last_id','$page','$date')";
-                $insertWebPageResult=mysqli_query($connect,$insertWebPage);
+                $insertWebPage = "INSERT INTO `tbl_pages`(`website_id`, `page_name`, `page_created_at`) VALUES ('$last_id','$page','$date')";
+                $insertWebPageResult = mysqli_query($connect, $insertWebPage);
             } else {
                 $error = "ip address is invalid";
             }
@@ -101,5 +101,15 @@ if (isset($_POST['dummy'])) {
         }
     }
     $data = array("websiteid" => $error, "userid" => $userIdOrginal, "last_id" => $last_id);
+    echo json_encode($data);
+}
+if ($_POST['page'] && $_POST['name']) {
+    extract($_POST);
+    include "../cred/dbConnect.php";
+    $date = date("Y-m-d");
+    $insertWebPage = "INSERT INTO `tbl_pages`(`website_id`, `page_name`, `page_created_at`) VALUES ('$last_id','$page','$date')";
+    $insertWebPageResult = mysqli_query($connect, $insertWebPage);
+    $last_id = mysqli_insert_id($connect);
+    $data = array("last_id" => $last_id);
     echo json_encode($data);
 }

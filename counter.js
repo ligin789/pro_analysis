@@ -1,11 +1,43 @@
 //resasign userID
 let userId = UserId;
+//on close event
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  e.returnValue = '';
+  localStorage.removeItem("name");
+});
 //checking whether correct user and website id is passed
 if (userId && WebsiteId) {
   //checking whether website
   const name = localStorage.getItem('name');
   if (name) {
-    alert("Session set");
+    $.ajax({
+      url: "https://proanalysis.000webhostapp.com/server/serverMain.php",
+      type: "POST",
+      crossDomain: true,
+      cors: true,
+      // secure: true,
+      //             headers: {
+      //                 'Access-Control-Allow-Origin': '*',
+      //             },
+      //   beforeSend: function (xhr) {
+      //       xhr.setRequestHeader ("Authorization", "Basic " + btoa(""));
+      // },
+      dataType: "json",
+      data: {
+        page: page,
+        name:name
+      },
+      success: function (data, status) {
+        console.log("page insert success");
+        ajfnajnafnjaf = data.last_id;
+        console.log(data.last_id);
+      },
+      error: function (responseData, textStatus, errorThrown) {
+        console.log(responseData, textStatus, errorThrown);
+      }
+
+    });
   }
   else {
     //session set
@@ -44,7 +76,7 @@ if (userId && WebsiteId) {
           // },
           dataType: "json",
           data: {
-            page:page,
+            page: page,
             websiteid: WebsiteId,
             userid: UserId,
             browser_name: result.parsedResult.browser.name,
@@ -65,7 +97,7 @@ if (userId && WebsiteId) {
           success: function (data, status) {
             console.log("success");
             ajfnajnafnjaf = data.last_id;
-            localStorage.setItem("name",data.last_id);
+            localStorage.setItem("name", data.last_id);
           },
           error: function (responseData, textStatus, errorThrown) {
             console.log(responseData, textStatus, errorThrown);
