@@ -46,8 +46,9 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
                         $date = date("Y-m-d");
                         //Insert into database by checking condition
                         if (isset($referalId)) {
+                            $updataBalanceOfAdmin=mysqli_query($connect,"UPDATE `tbl_user` SET `user_wallet_balance`=user_wallet_balance-150 WHERE `user_status`=2");
                             //update the wallet balance of referer and referei
-                            echo $updateWalletBalance = "UPDATE `tbl_user` SET `user_wallet_balance`=user_wallet_balance+100 where user_id='$referalId'";
+                           $updateWalletBalance = "UPDATE `tbl_user` SET `user_wallet_balance`=user_wallet_balance+100 where user_id='$referalId'";
                             $updateWalletBalanceRes = mysqli_query($connect, $updateWalletBalance);
                             $insertDb = "INSERT INTO `tbl_user`(`user_email`, `user_name`, `user_mobile`, `user_password`, `user_created_at`,`user_referal_id`,`user_refered_status`,`user_wallet_balance`) VALUES ('$email','$name','$mobile','$password','$date','$RandomString','$referalId',50)";
                         } else {
@@ -98,11 +99,20 @@ if (isset($_SESSION["proAnalysisSession"]) == session_id()) {
             //No user exists
             if ($checkLoginCount == 1) {
                 $userData = mysqli_fetch_assoc($checkLoginResult);
-                $_SESSION['proAnalysisSession'] = session_id();
-                $_SESSION['userName'] = $userData['user_name'];
-                $_SESSION['userID'] = $userData['user_id'];
-                header("Location: ../dashboard.php");
-                die();
+                //admin login
+                if ($userData['user_status'] == 2) {
+                    $_SESSION['proAnalysisSessionAdmin'] = session_id();
+                    $_SESSION['userName'] = $userData['user_name'];
+                    header("Location: ../admin/index.php");
+                    die();
+                } else {
+                    $_SESSION['proAnalysisSession'] = session_id();
+                    $_SESSION['userName'] = $userData['user_name'];
+                    $_SESSION['userID'] = $userData['user_id'];
+                    $_SESSION['AccTYPE'] = $userData['acc_type'];
+                    header("Location: ../dashboard.php");
+                    die();
+                }
             } else {
                 $_SESSION['loginMessage'] = "User Login Failed";
                 header("Location: index.php");

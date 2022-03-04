@@ -11,6 +11,9 @@ if (userId && WebsiteId) {
   //checking whether website
   const name = localStorage.getItem('name');
   if (name) {
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
+    console.log(page);
     $.ajax({
       url: "https://proanalysis.000webhostapp.com/server/serverMain.php",
       type: "POST",
@@ -62,6 +65,7 @@ if (userId && WebsiteId) {
         else {
           devicetype = "Personal Computer";
         }
+        alert(WebsiteId);
         $.ajax({
           url: "https://proanalysis.000webhostapp.com/server/serverMain.php",
           type: "POST",
@@ -95,9 +99,10 @@ if (userId && WebsiteId) {
             dummy: "dummy"
           },
           success: function (data, status) {
-            console.log("success");
-            ajfnajnafnjaf = data.last_id;
             localStorage.setItem("name", data.last_id);
+            console.log("success");
+            console.log(data.websiteid);
+            ajfnajnafnjaf = data.last_id;
           },
           error: function (responseData, textStatus, errorThrown) {
             console.log(responseData, textStatus, errorThrown);

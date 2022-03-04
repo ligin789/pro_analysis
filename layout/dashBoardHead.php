@@ -2,7 +2,23 @@
     <a href="dashboard.php">
         <div class="sidebar-header">
             <h3>
-                <img src="./assets/vectors/MainLogo.svg" alt="MainLogo" style="width: 200px" />
+                <?php
+                if ($_SESSION['AccTYPE'] == 1) {
+                ?>
+                    <img src="./assets/vectors/MainLogo.svg" alt="MainLogo" style="width: 200px" />
+                <?php
+                } else if ($_SESSION['AccTYPE'] == 2) {
+                ?>
+                    <img src="./assets/vectors/basicLogo.svg" alt="MainLogo" style="width: 200px" />
+                <?php
+                } else {
+                ?>
+                    <img src="./assets/vectors/premiumLogo.svg" alt="MainLogo" style="width: 200px" />
+                <?php
+                }
+
+                ?>
+
             </h3>
             <strong><img src="./assets/vectors/Logo.svg" alt="logo" style="width: 40px" /></strong>
         </div>
@@ -41,7 +57,7 @@
                 Region Based Analysis
             </a>
             <a href="./export.php">
-            <i class="fas fa-download"></i>
+                <i class="fas fa-download"></i>
                 Export Data
             </a>
             <a href="./viewWebsite.php">
@@ -49,11 +65,11 @@
                 Pro Analytics Adv-world
             </a>
             <a href="./referal.php">
-            <i class="fas fa-asterisk"></i>
+                <i class="fas fa-asterisk"></i>
                 Refer A friend
             </a>
             <a href="./proWallet.php">
-            <i class="fas fa-wallet"></i>
+                <i class="fas fa-wallet"></i>
                 Pro Wallet
             </a>
             <!-- <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">

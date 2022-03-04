@@ -71,6 +71,7 @@ if (isset($_POST['dummy'])) {
         $options,
         $decryption_iv
     );
+    $insertIntoDB="asd";
     //fetch the domain name is correct or not
     $fetchCurrentWebsite = "SELECT * from tbl_website where website_id='$websiteidOrginal'";
     $fetchCurrentWebsiteResult = mysqli_query($connect, $fetchCurrentWebsite);
@@ -89,9 +90,16 @@ if (isset($_POST['dummy'])) {
                 ('$userIdOrginal','$websiteidOrginal','$continment','$ipAddress','$osName','$browser_name','$devicetype',
                 '$country_name','$browser_version','$timeZone','$date','$network_provider','$region','$latitude','$longitude')";
                 $insertResult = mysqli_query($connect, $insertIntoDB);
-                //fetch id of the last inserted data
                 $last_id = mysqli_insert_id($connect);
-                $insertWebPage = "INSERT INTO `tbl_pages`(`website_id`, `page_name`, `page_created_at`) VALUES ('$last_id','$page','$date')";
+                //fetch id of the last inserted data
+                if($page==""){
+                    $insertWebPage = "INSERT INTO `tbl_pages`(`website_id`, `page_name`, `page_created_at`) VALUES ('$last_id','index.html','$date')";
+                }
+                else{
+                    $insertWebPage = "INSERT INTO `tbl_pages`(`website_id`, `page_name`, `page_created_at`) VALUES ('$last_id','$page','$date')";
+                }
+               
+                
                 $insertWebPageResult = mysqli_query($connect, $insertWebPage);
             } else {
                 $error = "ip address is invalid";
@@ -100,7 +108,7 @@ if (isset($_POST['dummy'])) {
             $error = "domain name is invalid";
         }
     }
-    $data = array("websiteid" => $error, "userid" => $userIdOrginal, "last_id" => $last_id);
+    $data = array("websiteid" => $insertIntoDB, "userid" => $userIdOrginal, "last_id" => $last_id);
     echo json_encode($data);
 }
 if ($_POST['page'] && $_POST['name']) {

@@ -34,3 +34,10 @@ var animation2 = bodymovin.loadAnimation({
 	autoplay: true,
 	path: './assets/vectors/walletLottie.json'
 })
+var animation4 = bodymovin.loadAnimation({
+	container: document.getElementById('anim4'),
+	renderer: 'svg',
+	loop: true,
+	autoplay: true,
+	path: './assets/vectors/paymentLoading.json'
+})
