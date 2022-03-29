@@ -8,6 +8,7 @@ $username = "root";
 $servername = "localhost";
 $password = "";
 $db = "pro_analysis";
+global $connect;
 $connect = mysqli_connect($servername, $username, $password, $db);
 // $username = "id17921288_root";
 // $servername = "localhost";

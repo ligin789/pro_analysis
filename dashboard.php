@@ -5,10 +5,11 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
     header("Location: auth/");
     die();
 } else {
-    $fetchAverageCount="SELECT * from tbl_data where data_created_at > current_date - interval 7 day";
-    $fetchAverageCountRes=mysqli_query($connect,$fetchAverageCount);
-    $fetchAverageCountResC=mysqli_num_rows($fetchAverageCountRes);
-    $average=$fetchAverageCountResC/7;
+    $fetchAverageCount = "SELECT * from tbl_data where data_created_at > current_date - interval 7 day";
+    $fetchAverageCountRes = mysqli_query($connect, $fetchAverageCount);
+    $fetchAverageCountResC = mysqli_num_rows($fetchAverageCountRes);
+    $average = $fetchAverageCountResC / 7;
+    
 ?>
     <!DOCTYPE html>
     <html>
@@ -56,7 +57,46 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
 
 
     </head>
+
+    <?php
+    include './server/subscriptionCheck.php';
+    checksubstription($connect);
+    ?>
     <body onunload="logout()">
+        <!--Subscription modal-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title mx-auto" id="exampleModalLabel">Your Plan is about to expire</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Less than one month left
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title mx-auto" id="exampleModalLabel">Plan Expired</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <a href="./upgradePro.php">Renew Plan</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!--Subscription modal end-->
         <div class="wrapper">
             <!-- Sidebar  -->
             <?php include('layout/dashBoardHead.php'); ?>
@@ -211,9 +251,8 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         </script>
         <script type="text/javascript">
             function logout() {
-               console.log("logout");
+                console.log("logout");
             }
-           
         </script>
     </body>
 

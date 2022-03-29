@@ -71,7 +71,6 @@ if (isset($_POST['dummy'])) {
         $options,
         $decryption_iv
     );
-    $insertIntoDB="asd";
     //fetch the domain name is correct or not
     $fetchCurrentWebsite = "SELECT * from tbl_website where website_id='$websiteidOrginal'";
     $fetchCurrentWebsiteResult = mysqli_query($connect, $fetchCurrentWebsite);
@@ -108,7 +107,7 @@ if (isset($_POST['dummy'])) {
             $error = "domain name is invalid";
         }
     }
-    $data = array("websiteid" => $insertIntoDB, "userid" => $userIdOrginal, "last_id" => $last_id);
+    $data = array("websiteid" => "dasd", "userid" => $userIdOrginal, "last_id" => $last_id);
     echo json_encode($data);
 }
 if ($_POST['page'] && $_POST['name']) {

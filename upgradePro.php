@@ -70,12 +70,12 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                                         <h4 class="my-0 font-weight-normal">Free</h4>
                                     </div>
                                     <div class="card-body">
-                                        <h1><b>0 Rs </b><small class="text-muted"></small></h1>
+                                        <h1><b>0 Rs</b><small class="text-muted"></small></h1>
                                         <ul class="list-unstyled mt-3 mb-4">
                                             <li>Can add 2 website</li>
-                                            <li>Adv Limit 5</li>
                                             <li>Email support</li>
                                             <li>Help center access</li>
+                                            <li>""</li>
                                         </ul> <a href="./dashboard.php"><button type="button" class="btn btn-lg btn-block btn-outline-info">Continue with this plan</button></a>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                                         <h1><b>100 Rs </b><small class="text-muted"></small></h1>
                                         <ul class="list-unstyled mt-3 mb-4">
                                             <li>10 Website</li>
-                                            <li>Adv limit 15 </li>
+                                            <li>Ads price 20% off </li>
                                             <li>Priority email support</li>
                                             <li>Help center access</li>
                                         </ul> <a href="./walletPayment.php"><button type="button" class="btn btn-lg btn-block btn-primary">Upgrade</button></a>
@@ -102,10 +102,10 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                                         <h4 class="my-0 font-weight-normal">Premium</h4>
                                     </div>
                                     <div class="card-body">
-                                        <h1><b>500 Rs </b><small class="text-muted"></small></h1>
+                                        <h1><b>500 Rs</b><small class="text-muted"></small></h1>
                                         <ul class="list-unstyled mt-3 mb-4">
                                             <li>UnLimied website</li>
-                                            <li>UnLimied Adv</li>
+                                            <li>Ads price 50% off </li>
                                             <li>Phone and email support</li>
                                             <li>Help center access</li>
                                         </ul> <a href="./walletPayment.php"><button type="button" class="btn btn-lg btn-block btn-primary">Upgrade</button></a>

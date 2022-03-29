@@ -38,7 +38,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 $_SESSION['AccTYPE'] = 3;
             }
             if (mysqli_query($connect, $updateUserStatus)) {
-                header("Location: ./dashboard.php");
+                header("Location: ../dashboard.php");
                 die();
             }
         }

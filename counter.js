@@ -65,7 +65,6 @@ if (userId && WebsiteId) {
         else {
           devicetype = "Personal Computer";
         }
-        alert(WebsiteId);
         $.ajax({
           url: "https://proanalysis.000webhostapp.com/server/serverMain.php",
           type: "POST",

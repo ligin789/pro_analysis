@@ -60,7 +60,7 @@
                 <i class="fas fa-download"></i>
                 Export Data
             </a>
-            <a href="./viewWebsite.php">
+            <a href="./proAds.php">
                 <i class="fas fa-briefcase"></i>
                 Pro Analytics Adv-world
             </a>
