@@ -100,10 +100,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                             <option value="1">Basic</option>
                             <option value="2">Premium</option>
                         </select>
-                        <center>
-                            <div id="anim4" class="image-one">
-                            </div>
-                        </center>
+                        
                         <div class="dash-box d-flex m-2" id="dash1" style="visibility:hidden;">
                             <div class="content-text">
                                 <div class="dailyCount" id="planValue"></div>
