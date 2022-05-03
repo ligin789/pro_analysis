@@ -104,7 +104,6 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                         <div class="dash-box d-flex m-2" id="dash1" style="visibility:hidden;">
                             <div class="content-text">
                                 <div class="dailyCount" id="planValue"></div>
-
                             </div>
                         </div>
                         <div class="dash-box d-flex m-2" id="dash2" style="visibility:hidden;">
@@ -113,7 +112,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                             </div>
                         </div>
                         <div>
-                            <a href="./referal.php"><button style="visibility:hidden;" class="btn btn-warning" id="recharge">Reacharge Wallet</button></a>
+                            <a href="./rechargeWallet.php"><button style="visibility:hidden;" class="btn btn-warning" id="recharge">Reacharge Wallet</button></a>
                             <button type="submit" id="paymentBtn" name="paymentBtn" disabled class="btn btn-success">Make Payment</button>
                         </div>
                 </form>

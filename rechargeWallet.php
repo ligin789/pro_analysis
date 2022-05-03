@@ -59,63 +59,69 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                     </div>
                 </nav>
 
-                <h2>Welcome to pro wallet <a href="./rechargeWallet.php" title="Recharge wallet">  <i class='fas fa-plus'></i></a> </h2>
-                <div id="regionTableContainer" class="regionTableContainer">
-                    <center>
-                        <div id="anim3" class="image-one">
+                <h2>Recharge Wallet </h2>
+                <form>
+                    <div class="card mx-auto mt-5 rounded px-2" style="width: 22rem;">
+                        <h3 class="mx-auto mt-3">Select the amount</h3>
 
+                        <div class="radio my-2 h6 mx-auto"><input type="radio" name="amt" class="ml-4" id="amt100" value="100" required>100
+                            <input type="radio" name="amt" value="500" class="ml-4" id="amt500" required>500
+                            <input type="radio" name="amt" value="1000" class="ml-4" id="amt1000" required>1000
                         </div>
-                        <div id="walletBalance" style="display: none;">
-                            <?php
-                            $fetchBalanceOfWallet = "SELECT user_wallet_balance from tbl_user where user_id='$userId' and user_status!=0";
-                            $fetchBalanceOfWalletRes = mysqli_query($connect, $fetchBalanceOfWallet);
-                            $fetchBalanceOfWalletRow = mysqli_fetch_array($fetchBalanceOfWalletRes);
-                            echo "<div class='dash-box d-flex col-3' data-tilt>
-                                    <div class='content-text'>
-                                        <div class='dailyCount'>".$fetchBalanceOfWalletRow['user_wallet_balance']."</div>Wallet Balance
-                                    </div>
-                                    <div class='icon-container ml-2 mt-3 text-secondary'>
-                                        <i class='fas fa-briefcase fa-3x'></i>
-                                    </div>
-                                </div>";
-                            ?>
+
+
+                        <div class="mx-auto mb-3">
+                            <button type="submit" id="payment" class="btn btn-success">Pay</button>
                         </div>
-                    </center>
-                </div>
+
+                    </div>
+                </form>
+
             </div>
         </div>
-        <!--Modal-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
-        <script src="./assets/scripts/lottie.js"></script>
-        <script src="./assets/scripts/app.js"></script>
-
-        <!--- Top Bar  -->
-        <script src="./assets/scripts/topbar.min.js"></script>
-        <!--- Top Bar  end-->
-
-        <!-- data table CDN - Full-->
-
-        <!-- jQuery CDN - Full-->
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <!-- Popper.JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-        <!-- Bootstrap JS -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <script>
-            setTimeout(function() {
-                document.getElementById("anim3").style.transform = "scale(.8) translate(0,-50px)";
-                document.getElementById("anim3").style.transition = "1s ease-in-out";
-            }, 2000);
-            setTimeout(function() {
-                document.getElementById("walletBalance").style.display = "block";
-            }, 3000);
-
-
-            //topbar notification
+            document.getElementById('payment').onclick = function(e) {
+                if (document.getElementById('amt1000').checked) {
+                    amt = 1000 * 100;
+                } else if (document.getElementById('amt500').checked) {
+                    amt = 500 * 100;
+                } else if (document.getElementById('amt100').checked) {
+                    amt = 100 * 100;
+                }
+                var options = {
+                    "key": "rzp_test_rHL7LKby0aHazx", // Enter the Key ID generated from the Dashboard
+                    "amount": amt, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                    "currency": "INR",
+                    "name": "ProAnalysis Ltd",
+                    "description": "Wallet Recharge",
+                    "image": "./assets/vectors/Logo.svg",
+                    "handler": function(response) {
+                        //success function
+                        $.ajax({
+                            url: "./server/upgradeProServer.php",
+                            type: "POST",
+                            data: {
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                Amt:amt
+                            },
+                            success: function(data, status) {
+                                console.log(data);
+                                window.location.href = "./proWallet.php";
+                            },
+                            error: function(responseData, textStatus, errorThrown) {
+                                console.log(responseData, textStatus, errorThrown);
+                            }
+                        });
+                    }
+                };
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+                e.preventDefault();
+            }
         </script>
-
     </body>
 
     </html>

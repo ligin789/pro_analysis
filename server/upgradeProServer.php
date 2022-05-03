@@ -12,6 +12,27 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         $row = mysqli_fetch_array($selectResult);
         echo $row['user_wallet_balance'];
     }
+    if(isset($_POST['razorpay_payment_id']))
+    {
+        extract($_POST);
+        $Amt=$Amt/100;
+        $date = date("Y-m-d");
+        $userData = $_SESSION['userID'];
+        $sql="INSERT INTO `tbl_payment`( `payment_amt`, `payment_razorpay_id`, `payment_desc`, `payment_created_at`, `payment_user_id`) 
+        VALUES ('$Amt','$razorpay_payment_id','Wallet Recharge','$date','$userData')";
+        if(mysqli_query($connect,$sql))
+        {
+            $updateUserWallet="UPDATE `tbl_user` SET `user_wallet_balance`=`user_wallet_balance`+'$Amt' WHERE `user_id`='$userData'";
+            if(mysqli_query($connect,$updateUserWallet))
+            {
+                echo "success";
+            }
+            else
+            {
+                echo "error";
+            }
+        }
+    }
     //payment
     if (isset($_POST['paymentBtn'])) {
         if ($_POST['option'] == 1) {

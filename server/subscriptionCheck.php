@@ -9,7 +9,7 @@ function checksubstription($connect)
         $checkpaymentLogRow = mysqli_fetch_assoc($checkpaymentLogRes);
         $paymentDate = $checkpaymentLogRow['log_created_At'];
         $today = date("Y-m-d");
-        $today - $paymentDate;
+        // $today - $paymentDate;
         $remains = 365 - (round((strtotime($today) - strtotime($paymentDate)) / 86400, 0));
         if ($remains <= 31 and $remains > 0) {
             echo "<script type='text/javascript'>
@@ -18,7 +18,7 @@ function checksubstription($connect)
            });
            console.log('done');
         </script>";
-        } else if ($remains < 0) {
+        } else if ($remains <= 0) {
             $updateUserSubStatus = "UPDATE `tbl_user` SET `acc_type`=1 WHERE `user_id`='$userID'";
             if (mysqli_query($connect, $updateUserSubStatus)) {
                 $_SESSION['AccTYPE'] = 1;
