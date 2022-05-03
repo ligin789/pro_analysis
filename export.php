@@ -88,7 +88,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <button class="btn btn-danger">As PDF <i class="fas fa-file-pdf"></i></button>
+                                                    <button class="btn btn-danger" name="PDFSubmitRegion" type="submit">As PDF <i class="fas fa-file-pdf"></i></button>
                                                 </div>
                                             </div>
                                         </div>

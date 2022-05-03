@@ -32,12 +32,24 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.uikit.min.css">
         <link rel="stylesheet" href="./assets/css/dashboardstyle.css" />
         <link rel="stylesheet" href="./assets/css/ad.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
         <!-- Font Awesome JS -->
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
         <style>
 
         </style>
+         <!-- Bootstrap CSS CDN -->
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous" />
+        <!-- Our Custom CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.uikit.min.css">
+        <link rel="stylesheet" href="./assets/css/dashboardstyle.css" />
+        <link rel="stylesheet" href="./assets/css/ad.css" />
 
         <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvtz1GjcbeOzhVK9Q09SQXcicu8pi--_o&callback=initMap"></script> -->
 
@@ -89,15 +101,15 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                         </a>
 
                         <?php
-                         $fetchFromADsTable = "SELECT * from tbl_ads where ads_user_id='$userID' and ads_status!=0";
+                        $fetchFromADsTable = "SELECT * from tbl_ads where ads_user_id='$userID' and ads_status!=0";
                         $result = mysqli_query($connect, $fetchFromADsTable);
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_array($result)) {
                         ?>
-                                <a class="ads-box-empty text-center" >
-                                        <div class="ads-box-empty-content-title mt-4 h4">
-                                            <?php echo $row['ads_name']; ?>
-                                        </div>   
+                                <a class="ads-box-empty text-center">
+                                    <div class="ads-box-empty-content-title mt-4 h4">
+                                        <?php echo $row['ads_name']; ?>
+                                    </div>
                                 </a>
                         <?php
                             }
@@ -170,8 +182,9 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                                         </div> -->
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Country Name</label>
-                                            <select class="form-control" id="exampleFormControlSelect1" name="adsRegion">
-                                                <?php
+
+                                            <select class="selectpicker form-control" multiple data-live-search="true" name="adsRegion">
+                                            <?php
                                                 $selectCountry = "SELECT DISTINCT data_country from tbl_data";
                                                 $selectCountryRes = mysqli_query($connect, $selectCountry);
                                                 if (mysqli_num_rows($selectCountryRes) > 0) {
@@ -182,9 +195,8 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                                                     }
                                                 }
                                                 ?>
-
-
                                             </select>
+                                           
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlFile1">Poster</label>
@@ -233,7 +245,6 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
             </div>
         </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script>
