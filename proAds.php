@@ -182,8 +182,8 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                                         </div> -->
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Country Name</label>
-
-                                            <select class="selectpicker form-control" multiple data-live-search="true" name="adsRegion">
+                                            <input type="hidden" name="adsRegion" id="adsRegion">
+                                            <select class="selectpicker form-control" multiple data-live-search="true">
                                             <?php
                                                 $selectCountry = "SELECT DISTINCT data_country from tbl_data";
                                                 $selectCountryRes = mysqli_query($connect, $selectCountry);
@@ -285,6 +285,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 $('#firstButton').hide();
                 $('#secondButton').show();
                 $('#firstBackButton').show();
+                document.getElementById('adsRegion').value=$('.filter-option-inner-inner').html();
             }
 
             function secondPageBack() {

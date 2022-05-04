@@ -139,4 +139,70 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
 
         $pdf->Output();
     }
+
+    //date pdf
+    if (isset($_POST['PDFSubmitdate'])) {
+        $fdate=$_POST['fromDate'];
+        $tdate=$_POST['toDate'];
+        require "../fpdf.php";
+        extract($_POST);
+        $pdf = new FPDF();
+        $conn = new PDO("mysql:host=localhost;dbname=pro_analysis", "root", "");
+
+        $pdf->AddPage();
+        $pdf->Line(10, 15, 200, 15);
+        $pdf->Ln(8);
+        $pdf->SetFont("Arial", "B", 20);
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Cell(0, 20, "ProAnalysis", 0, 0, "C");
+       
+        $pdf->Ln(25);
+        $pdf->SetLeftMargin(10);
+        $pdf->SetFont("Arial", "", 10);
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Cell(20, 10, "Sl.No", "1", "0", "C");
+        $pdf->Cell(30, 10, "Website Name", "1", "0", "C");
+        $pdf->Cell(30, 10, "IP Address", "1", "0", "C");
+        $pdf->Cell(20, 10, "Country", "1", "0", "C");
+        $pdf->Cell(30, 10, "Device Type", "1", "0", "C");
+        $pdf->Cell(20, 10, "OS Name", "1", "0", "C");
+        $pdf->Cell(20, 10, "Browser", "1", "0", "C");
+        $pdf->Cell(20, 10, "Date", "1", "0", "C");
+
+        extract($_POST);
+        $fetchDetailSql = "SELECT * from tbl_data where (data_created_at BETWEEN '$fdate' and '$tdate') and data_status!=0 and data_user_id='$userId'";
+        $result = $conn->prepare($fetchDetailSql);
+        $result->execute();
+        if ($result->rowCount() != 0) {
+            $count=1;
+            while ($row = $result->fetch()) {
+                $data_website_id = $row['data_website_id'];
+                echo $fetchWebsiteSql = "SELECT website_name from tbl_website where website_id='$data_website_id'";
+                $fetchWebsiteResult = mysqli_query($connect, $fetchWebsiteSql);
+                $fetchWebsiteRow = mysqli_fetch_array($fetchWebsiteResult);
+                $website_name = $fetchWebsiteRow['website_name'];
+                $pdf->Ln();
+                $pdf->SetLeftMargin(10);
+                $pdf->SetFont("Arial", "", 10);
+                $pdf->SetTextColor(0, 0, 0);
+                $pdf->Cell(20, 10, $count, "1", "0", "C");
+                $pdf->Cell(30, 10, ucwords($website_name), "1", "0", "C");
+                $pdf->Cell(30, 10, $row['data_ip'], "1", "0", "C");
+                $pdf->Cell(20, 10, ucwords($row['data_country']), "1", "0", "C");
+                $pdf->Cell(30, 10, $row['data_device_type'], "1", "0", "C");
+                $pdf->Cell(20, 10, $row['os_name'], "1", "0", "C");
+                $pdf->Cell(20, 10, $row['data_browser'], "1", "0", "C");
+                $pdf->Cell(20, 10, $row['data_created_at'], "1", "0", "C");
+                $count++;
+            }
+        }
+
+        $pdf->Output();
+    }else{
+        $pdf->SetLeftMargin(10);
+                $pdf->SetFont("Arial", "", 10);
+                $pdf->SetTextColor(0, 0, 0);
+                $pdf->Cell(20, 10, "no", "1", "0", "C");
+    }
+
 }

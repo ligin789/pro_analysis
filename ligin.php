@@ -11,10 +11,7 @@ $pdf->Ln(8);
 $pdf->SetFont("Arial", "B", 20);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->Cell(0, 20, "ProAnalysis", 0, 0, "C");
-$pdf->Ln();
-$pdf->SetFont("Arial", "U", 15);
-$pdf->SetTextColor(0, 0, 0);
-$pdf->Cell(180, 20, "Asia", 0, 0, "C");
+
 
 
       
