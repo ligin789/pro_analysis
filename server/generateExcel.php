@@ -196,13 +196,16 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 $count++;
             }
         }
+        else if($result->rowCount() == 0){
+            $pdf->Ln();
+
+            $pdf->SetLeftMargin(10);
+                    $pdf->SetFont("Arial", "B", 10);
+                    $pdf->SetTextColor(0, 0, 0);
+                    $pdf->Cell(190, 10, "no Data Found", "1", "0", "C");
+        }
 
         $pdf->Output();
-    }else{
-        $pdf->SetLeftMargin(10);
-                $pdf->SetFont("Arial", "", 10);
-                $pdf->SetTextColor(0, 0, 0);
-                $pdf->Cell(20, 10, "no", "1", "0", "C");
     }
 
 }
