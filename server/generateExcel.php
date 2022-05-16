@@ -147,7 +147,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         require "../fpdf.php";
         extract($_POST);
         $pdf = new FPDF();
-        $conn = new PDO("mysql:host=localhost;dbname=pro_analysis", "root", "");
+        $conn = new PDO("mysql:host=localhost;dbname=id17921288_proanalysis", "id17921288_root", "Puthiyedathu@123");
 
         $pdf->AddPage();
         $pdf->Line(10, 15, 200, 15);

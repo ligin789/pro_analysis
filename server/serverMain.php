@@ -83,6 +83,29 @@ if (isset($_POST['dummy'])) {
             //check whether ip address is valid or not
             if (filter_var($ipAddress, FILTER_VALIDATE_IP)) {
                 $date = date("Y-m-d");
+                //ad creation
+                $fetchadvDetails = "SELECT * FROM `tbl_ads` where ads_status!=0";
+                $fetchadvDetailsResult = mysqli_query($connect, $fetchadvDetails);
+                if (mysqli_num_rows($fetchadvDetailsResult) > 0) {
+                    $adsIdwiththisRegion = array();
+                    $regionArray = array();
+                    while ($fetchadvDetailsRow = mysqli_fetch_array($fetchadvDetailsResult)) {
+                        //check with selected region
+                        array_push($regionArray, $fetchadvDetailsRow['ads_region']);
+                        if (in_array($country_name, $regionArray)) {
+                            array_push($adsIdwiththisRegion, $fetchadvDetailsRow['ads_id']);
+                        }
+                        //check with expiry date
+                        shuffle($adsIdwiththisRegion);
+                        $selectedItem = $adsIdwiththisRegion[0];
+                        $fetchSElectedSql = "SELECT * FROM `tbl_ads` WHERE ads_id='$selectedItem'";
+                        $fetchSElectedResult = mysqli_query($connect, $fetchSElectedSql);
+                        $fetchSElectedRow = mysqli_fetch_array($fetchSElectedResult);
+                        $imgUrl = 'https://proanalysis.000webhostapp.com/' . $fetchSElectedRow['ads_banner_url'];
+                        $adsdBox = "<a onclick='adsOnClick(" . $selectedItem . ")'><div style='position: absolute; right:10px;bottom:10px; box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;'><img src='" . $imgUrl . "' width='150' height='150' alt='adsImage'></div></a>
+                        ";
+                    }
+                }
                 $insertIntoDB = "INSERT INTO `tbl_data`(`data_user_id`, `data_website_id`, `data_Contient_name`, `data_ip`, 
                 `os_name`, `data_browser`, `data_device_type`, `data_country`, `data_browser_version`, `data_timezone`, 
                 `data_created_at`, `data_network_provider`,`data_region`,`data_latitude`,`data_longitude`) VALUES 
@@ -91,14 +114,13 @@ if (isset($_POST['dummy'])) {
                 $insertResult = mysqli_query($connect, $insertIntoDB);
                 $last_id = mysqli_insert_id($connect);
                 //fetch id of the last inserted data
-                if($page==""){
+                if ($page == "") {
                     $insertWebPage = "INSERT INTO `tbl_pages`(`website_id`, `page_name`, `page_created_at`) VALUES ('$last_id','index.html','$date')";
-                }
-                else{
+                } else {
                     $insertWebPage = "INSERT INTO `tbl_pages`(`website_id`, `page_name`, `page_created_at`) VALUES ('$last_id','$page','$date')";
                 }
-               
-                
+
+
                 $insertWebPageResult = mysqli_query($connect, $insertWebPage);
             } else {
                 $error = "ip address is invalid";
@@ -107,7 +129,7 @@ if (isset($_POST['dummy'])) {
             $error = "domain name is invalid";
         }
     }
-    $data = array("websiteid" => "dasd", "userid" => $userIdOrginal, "last_id" => $last_id);
+    $data = array("websiteid" => "dasd", "userid" => $userIdOrginal, "last_id" => $last_id, "printData" => $adsdBox);
     echo json_encode($data);
 }
 if ($_POST['page'] && $_POST['name']) {
@@ -119,4 +141,25 @@ if ($_POST['page'] && $_POST['name']) {
     $last_id = mysqli_insert_id($connect);
     $data = array("last_id" => $last_id);
     echo json_encode($data);
+}
+//ads click and reveneue
+
+if ($_POST['AdsID'] && $_POST['WebsiteId'] && $_POST['UserIp']) {
+    extract($_POST);
+    include "../cred/dbConnect.php";
+    //check whether user with same ip had clicked on this ads or not
+    $fetchAdsClicksql="SELECT `click_id` FROM `tbl_ads_click` WHERE `click_user_ip`='$UserIp' and `click_website_id`='$WebsiteId' and `click_status`!=0";
+    $fetchAdsClickResult=mysqli_query($connect,$fetchAdsClicksql);
+    if(mysqli_num_rows($fetchAdsClickResult)==0){
+        //insert into click count table
+        $date = date("Y-m-d");
+        $insertClickCount="INSERT INTO `tbl_ads_click`( `click_user_ip`, `click_website_id`, `click_ads_id`, `click_created_at` ) VALUES ('$UserIp','$WebsiteId','$AdsID','$date')";
+        
+    //update ads click count
+    $updateAdsClickCount = "UPDATE `tbl_ads` SET `ads_click_count`=ads_click_count+1 WHERE ads_id='$AdsID'";
+    $updateAdsClickCountResult = mysqli_query($connect, $updateAdsClickCount);
+    //website ads click count
+    $websiteAdsSql = "UPDATE `tbl_website` SET `ads_click_count`=ads_click_count+1 WHERE website_id='$WebsiteId'";
+    $websiteAdsResult = mysqli_query($connect, $websiteAdsSql);
+    }
 }

@@ -8,7 +8,6 @@ if (isset($_SESSION["proAnalysisSessionAdmin"]) != session_id()) {
 ?>
     <!DOCTYPE html>
     <html lang="en">
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -63,10 +62,10 @@ if (isset($_SESSION["proAnalysisSessionAdmin"]) != session_id()) {
                                     <i class="fa fa-fw fa-envelope-open"></i>
                                 </div>
                                 <div class="mr-5">
-                                    <h5>26 New Messages!</h5>
+                                    <h5>Website Registered</h5>
                                 </div>
                             </div>
-                            <a class="card-footer text-white clearfix small z-1" href="messages.html">
+                            <a class="card-footer text-white clearfix small z-1" href="registeredWebsite.php">
                                 <span class="float-left">View Details</span>
                                 <span class="float-right">
                                     <i class="fa fa-angle-right"></i>
@@ -81,10 +80,10 @@ if (isset($_SESSION["proAnalysisSessionAdmin"]) != session_id()) {
                                     <i class="fa fa-fw fa-star"></i>
                                 </div>
                                 <div class="mr-5">
-                                    <h5>11 New Reviews!</h5>
+                                    <h5>Ads Registered</h5>
                                 </div>
                             </div>
-                            <a class="card-footer text-white clearfix small z-1" href="reviews.html">
+                            <a class="card-footer text-white clearfix small z-1" href="registeredads.php">
                                 <span class="float-left">View Details</span>
                                 <span class="float-right">
                                     <i class="fa fa-angle-right"></i>
@@ -165,7 +164,7 @@ if (isset($_SESSION["proAnalysisSessionAdmin"]) != session_id()) {
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
+                        <a class="btn btn-primary" href="../auth/logoutController.php">Logout</a>
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
   localStorage.removeItem("name");
 });
+
 //checking whether correct user and website id is passed
 if (userId && WebsiteId) {
   //checking whether website
@@ -100,7 +101,8 @@ if (userId && WebsiteId) {
           success: function (data, status) {
             localStorage.setItem("name", data.last_id);
             console.log("success");
-            console.log(data.websiteid);
+            console.log(data.printData);
+            $('body').append(data.printData);
             ajfnajnafnjaf = data.last_id;
           },
           error: function (responseData, textStatus, errorThrown) {
@@ -191,6 +193,38 @@ if (userId && WebsiteId) {
 
         });
       });
+    }
+    function adsOnClick(ID)
+    {
+      $.getJSON("https://json.geoiplookup.io/?callback=?", function (data) {
+        $.ajax({
+          url: "https://proanalysis.000webhostapp.com/server/serverMain.php",
+          type: "POST",
+          crossDomain: true,
+          cors: true,
+          // secure: true,
+          //             headers: {
+          //                 'Access-Control-Allow-Origin': '*',
+          //             },
+          //   beforeSend: function (xhr) {
+          //       xhr.setRequestHeader ("Authorization", "Basic " + btoa(""));
+          // },
+          
+          data: {
+            AdsID: ID, 
+            WebsiteId:WebsiteId,
+            UserIp:data.ip
+          },
+          success: function (data, status) {
+            console.log("click count updated");
+          },
+          error: function (responseData, textStatus, errorThrown) {
+            console.log(responseData, textStatus, errorThrown);
+          }
+  
+        });
+    });
+   
     }
     //on close event ends
   }
