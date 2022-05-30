@@ -89,12 +89,12 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                 <!--Main content-->
 
                 <div class="container-ads">
-                    <div class="topbar-ads">
+                    <!-- <div class="topbar-ads">
                         <form class="search-container">
                             <input type="text" id="search-bar" placeholder="What can I help you with today?">
                             <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
                         </form>
-                    </div>
+                    </div> -->
                     <div class="ads-items-container">
                         <a class="ads-box-empty text-center" data-toggle="modal" data-target="#exampleModal">
                             <i class="fa fa-plus fa-3x mt-4" aria-hidden="true" title="Add new Ads"></i>
@@ -106,7 +106,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_array($result)) {
                         ?>
-                                <a class="ads-box-empty text-center">
+                                <a class="ads-box-empty text-center" href="ViewIndiAds.php?ads_id=<?php echo $row['ads_id'];?>">
                                     <div class="ads-box-empty-content-title mt-4 h4">
                                         <?php echo $row['ads_name']; ?>
                                     </div>
