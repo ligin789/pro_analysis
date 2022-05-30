@@ -65,7 +65,7 @@ if (isset($_SESSION["proAnalysisSessionAdmin"]) != session_id()) {
                     {
                         ?>
                         <li>
-						<span><?php echo ucwords($row['ads_updated_at']);?></span>
+						<span><form action="#" method="post"><button type="submit" name='deleteAds' value="<?php echo $row['ads_id'];?>" class='btn btn-danger'>Delete</button></form></span>
 						<h4><?php echo ucwords($row['ads_name']);?> <i class="unread"><?php echo ucwords($row['ads_created_at']);?></i></h4>
 						<p><?php echo $row['ads_region'];?></p>
 					</li>
@@ -144,3 +144,29 @@ if (isset($_SESSION["proAnalysisSessionAdmin"]) != session_id()) {
 </html>
 <?php
 } ?>
+<?php
+if(isset($_POST['deleteAds']))
+{
+  extract($_POST);
+  $updateAds="UPDATE tbl_ads SET ads_status='0' WHERE ads_id='$deleteAds'";
+  $resultUpdateAds=mysqli_query($connect,$updateAds);
+  if($resultUpdateAds)
+  {
+    ?>
+    <script>
+      alert("Ads deleted successfully");
+      window.location.href="registeredads.php";
+    </script>
+    <?php
+  }
+  else
+  {
+    ?>
+    <script>
+      alert("Ads not deleted");
+      window.location.href="registeredads.php";
+    </script>
+    <?php
+  }
+}
+?>

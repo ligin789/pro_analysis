@@ -154,6 +154,16 @@ if ($_POST['AdsID'] && $_POST['WebsiteId'] && $_POST['UserIp']) {
         //insert into click count table
         $date = date("Y-m-d");
         $insertClickCount="INSERT INTO `tbl_ads_click`( `click_user_ip`, `click_website_id`, `click_ads_id`, `click_created_at` ) VALUES ('$UserIp','$WebsiteId','$AdsID','$date')";
+        $insertClickCountResult=mysqli_query($connect,$insertClickCount);
+
+        //update website owner balance
+        $fetchWebsiteOwnerSql="SELECT `user_id` FROM `tbl_website` WHERE `website_id`='$WebsiteId'";
+        $fetchWebsiteOwnerResult=mysqli_query($connect,$fetchWebsiteOwnerSql);
+        $fetchWebsiteOwnerRow=mysqli_fetch_array($fetchWebsiteOwnerResult);
+        $websiteOwnerId=$fetchWebsiteOwnerRow['user_id'];
+        //update his balance
+        $updateOwnerBalnce="UPDATE `tbl_user` SET `user_wallet_balance`=`user_wallet_balance`+'o.1' WHERE `user_id`='$websiteOwnerId'";
+        $updateOwnerBalnceResult=mysqli_query($connect,$updateOwnerBalnce);
         
     //update ads click count
     $updateAdsClickCount = "UPDATE `tbl_ads` SET `ads_click_count`=ads_click_count+1 WHERE ads_id='$AdsID'";
