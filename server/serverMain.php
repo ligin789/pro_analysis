@@ -101,7 +101,7 @@ if (isset($_POST['dummy'])) {
                         $fetchSElectedSql = "SELECT * FROM `tbl_ads` WHERE ads_id='$selectedItem'";
                         $fetchSElectedResult = mysqli_query($connect, $fetchSElectedSql);
                         $fetchSElectedRow = mysqli_fetch_array($fetchSElectedResult);
-                        $imgUrl = 'https://proanalysis.000webhostapp.com/' . $fetchSElectedRow['ads_banner_url'];
+                        $imgUrl = 'https://proanalysis.000webhostapp.com/proAn/' . $fetchSElectedRow['ads_banner_url'];
                         $adsdBox = "<a onclick='adsOnClick(" . $selectedItem . ")'><div style='position: absolute; right:10px;bottom:10px; box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;'><img src='" . $imgUrl . "' width='150' height='150' alt='adsImage'></div></a>
                         ";
                     }

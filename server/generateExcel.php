@@ -43,7 +43,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
     //date based prediction
     if (isset($_POST['excelSubmitdate'])) {
         extract($_POST);
-        echo $fetchDetailSql = "SELECT * from tbl_data where (data_created_at BETWEEN '$fromDate' and '$toDate') and data_status!=0 and data_user_id='$userId'";
+        $fetchDetailSql = "SELECT * from tbl_data where (data_created_at BETWEEN '$fromDate' and '$toDate') and data_status!=0 and data_user_id='$userId'";
         $fetchDetailResult = mysqli_query($connect, $fetchDetailSql);
         //check count >0
         if (mysqli_num_rows($fetchDetailResult) > 0) {
@@ -53,7 +53,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
             //fetch all datas which satify the condition
             while ($fetchDateRow = mysqli_fetch_assoc($fetchDetailResult)) {
                 $data_website_id = $fetchDateRow['data_website_id'];
-                echo $fetchWebsiteSql = "SELECT website_name from tbl_website where website_id='$data_website_id' ";
+                $fetchWebsiteSql = "SELECT website_name from tbl_website where website_id='$data_website_id' ";
                 $fetchWebsiteResult = mysqli_query($connect, $fetchWebsiteSql);
                 $fetchWebsiteRow = mysqli_fetch_array($fetchWebsiteResult);
                 $website_name = $fetchWebsiteRow['website_name'];
@@ -80,7 +80,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         require "../fpdf.php";
         extract($_POST);
         $pdf = new FPDF();
-        $conn = new PDO("mysql:host=localhost;dbname=pro_analysis", "root", "");
+        $conn = new PDO("mysql:host=localhost;dbname=proanalysis_db", "proanalysis_root", "U2Q}R^i,anC*");
 
 
         $pdf->AddPage();
@@ -147,7 +147,7 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         require "../fpdf.php";
         extract($_POST);
         $pdf = new FPDF();
-        $conn = new PDO("mysql:host=localhost;dbname=id17921288_proanalysis", "id17921288_root", "Puthiyedathu@123");
+        $conn = new PDO("mysql:host=localhost;dbname=proanalysis", "root", "");
 
         $pdf->AddPage();
         $pdf->Line(10, 15, 200, 15);
@@ -169,15 +169,14 @@ if (isset($_SESSION["proAnalysisSession"]) != session_id()) {
         $pdf->Cell(20, 10, "Browser", "1", "0", "C");
         $pdf->Cell(20, 10, "Date", "1", "0", "C");
 
-        extract($_POST);
-        $fetchDetailSql = "SELECT * from tbl_data where (data_created_at BETWEEN '$fdate' and '$tdate') and data_status!=0 and data_user_id='$userId'";
+        $fetchDetailSql = "SELECT * from tbl_data where (data_created_at BETWEEN '$fromDate' and '$toDate') and data_status!=0 and data_user_id='$userId'";
         $result = $conn->prepare($fetchDetailSql);
         $result->execute();
         if ($result->rowCount() != 0) {
             $count=1;
             while ($row = $result->fetch()) {
                 $data_website_id = $row['data_website_id'];
-                echo $fetchWebsiteSql = "SELECT website_name from tbl_website where website_id='$data_website_id'";
+                $fetchWebsiteSql = "SELECT website_name from tbl_website where website_id='$data_website_id'";
                 $fetchWebsiteResult = mysqli_query($connect, $fetchWebsiteSql);
                 $fetchWebsiteRow = mysqli_fetch_array($fetchWebsiteResult);
                 $website_name = $fetchWebsiteRow['website_name'];

@@ -16,7 +16,7 @@ if (userId && WebsiteId) {
     var page = path.split("/").pop();
     console.log(page);
     $.ajax({
-      url: "https://proanalysis.000webhostapp.com/server/serverMain.php",
+      url: "https://proanalysis.000webhostapp.com/proAn/server/serverMain.php",
       type: "POST",
       crossDomain: true,
       cors: true,
